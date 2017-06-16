@@ -1,4 +1,4 @@
-package samuel.example.com.soccernow;
+package samuel.example.com.soccernow.view;
 
 
 import android.os.Bundle;
@@ -15,6 +15,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import samuel.example.com.soccernow.ApiInterface;
+import samuel.example.com.soccernow.NewsAdapter;
 import samuel.example.com.soccernow.R;
 import samuel.example.com.soccernow.model.Article;
 import samuel.example.com.soccernow.model.NewsResponse;
@@ -33,7 +35,7 @@ public class NewsFragment extends Fragment {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(newsAdapter);
-       // loadNewsResponse ();
+        loadNewsResponse ();
         return  rootView ;
     }
 
@@ -41,7 +43,11 @@ public class NewsFragment extends Fragment {
     public void loadNewsResponse ()
     {
         ApiInterface apiService = ApiInterface.ApiClient.getClient().create(ApiInterface.class);
-        Call<NewsResponse> call =apiService.getTopNews();
+        /*
+
+ https://newsapi.org/v1/articles?source=talksport&sortBy=latest &apiKey=27819ced7daf46d5ac106af434a7c7db
+         */
+        Call<NewsResponse> call =apiService.getTopNews("talksport" , "latest" , "27819ced7daf46d5ac106af434a7c7db");
         call.enqueue(new Callback<NewsResponse>() {
             @Override
             public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {

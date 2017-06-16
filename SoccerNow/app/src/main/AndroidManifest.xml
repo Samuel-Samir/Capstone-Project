@@ -13,11 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ContentActivity"
+            android:name=".view.ContentActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
-        <activity android:name=".NewsActivity">
+        <activity android:name=".view.NewsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

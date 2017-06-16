@@ -4,6 +4,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 import samuel.example.com.soccernow.model.NewsResponse;
 
 /**
@@ -13,22 +14,15 @@ import samuel.example.com.soccernow.model.NewsResponse;
 public interface ApiInterface {
 
 
-    @GET("/")
-    Call<NewsResponse> getTopNews ();
-    /*
 
 
-       @GET("movie/top_rated")
-    Call<MoviesResponse> getTopRatedMovies(@Query("api_key") String apiKey);
-
-    @GET("movie/{id}")
-    Call<MoviesResponse> getMovieDetails(@Path("id") int id, @Query("api_key") String apiKey);
-    */
+    @GET("articles/")
+    Call<NewsResponse> getTopNews(@Query("source") String source, @Query("sortBy") String sortby, @Query("apiKey") String apiKey);
 
 
     class ApiClient {
 
-        public static final String BASE_URL = "https://newsapi.org/v1/articles";
+        public static final String BASE_URL = "https://newsapi.org/v1/";
         private static Retrofit retrofit = null;
 
 
