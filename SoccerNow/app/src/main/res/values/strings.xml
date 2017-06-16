@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">SoccerNow</string>
+    <string name="title_activity_content">ContentActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <string name="news">News</string>
+    <string name="primera_liga">Primera Liga</string>
+    <string name="bundesliga">Bundesliga</string>
+    <string name="ligue_1">Ligue 1</string>
+    <string name="serie_A">Serie A</string>
+    <string name="champions_league">Champions-League</string>
+    <string name="chate">Chate A</string>
+
+
+</resources>
