@@ -1,9 +1,15 @@
 package samuel.example.com.soccernow.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +22,11 @@ import samuel.example.com.soccernow.R;
 public class ContentActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+
+    public static String NEWS_TYPE = "newsType" ;
+    TabLayout tabLayout;
+    ViewPager viewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,17 +35,81 @@ public class ContentActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPager.setAdapter(new ContentActivity.CustomAdapter(getSupportFragmentManager(), getApplicationContext()));
+
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+        });
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.getMenu().getItem(0).setChecked(true);
         navigationView.setCheckedItem(R.id.nav_news);
         navigationView.setNavigationItemSelectedListener(this);
 
     }
+
+    private class CustomAdapter extends FragmentPagerAdapter {
+
+        private String fragments[] = {getResources().getString(R.string.top_news) , getResources().getString(R.string.latest_news) };
+
+        public CustomAdapter(FragmentManager supportFragmentManager, Context applicationContext) {
+            super(supportFragmentManager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0: {
+                    NewsFragment newsFragment = new NewsFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(NEWS_TYPE, 0);
+                    newsFragment.setArguments(bundle);
+                    return new NewsFragment();
+                }
+                case 1: {
+                    NewsFragment newsFragment = new NewsFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(NEWS_TYPE, 1);
+                    newsFragment.setArguments(bundle);
+                    return new NewsFragment();                }
+                default:
+                    return null;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return fragments.length;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return fragments[position];
+        }
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -76,7 +151,7 @@ public class ContentActivity extends AppCompatActivity
 
         if (id == R.id.nav_news) {
 
-          startActivity(new Intent(ContentActivity.this , NewsActivity.class));
+          //startActivity(new Intent(ContentActivity.this , NewsActivity.class));
         }
         /*else if (id == R.id.nav_gallery) {
 

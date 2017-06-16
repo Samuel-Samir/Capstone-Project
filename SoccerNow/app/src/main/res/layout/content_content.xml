@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="samuel.example.com.soccernow.view.ContentActivity"
-    tools:showIn="@layout/app_bar_content">
+    tools:showIn="@layout/app_bar_content"
+    android:background="@color/layout_background"
+    >
 
 
 
+     <android.support.design.widget.TabLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:id="@+id/tabLayout"
+         android:layout_alignParentTop="true"
+         android:layout_centerHorizontal="true"
+         android:background="@color/colorPrimary"
+         app:tabMode="fixed"
+         app:tabTextColor="@color/transparent_white"
+         app:tabSelectedTextColor="@color/colorAccent"
+         app:tabGravity="fill"/>
 
-</android.support.constraint.ConstraintLayout>
+     <android.support.v4.view.ViewPager
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:id="@+id/viewPager"
+         android:layout_below="@+id/tabLayout"
+         android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>

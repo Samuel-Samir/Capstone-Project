@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,12 +26,23 @@ public class NewsFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private NewsAdapter newsAdapter;
+    private String newsOrder="";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_top_news, container, false);
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            int myInt = bundle.getInt(ContentActivity.NEWS_TYPE);
+            if(myInt==0) {
+                newsOrder = "top";
+            }
+            else if (myInt==1) {
+                newsOrder = "latest";
+            }
 
+        }
         newsAdapter = new NewsAdapter();
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -47,7 +59,8 @@ public class NewsFragment extends Fragment {
 
  https://newsapi.org/v1/articles?source=talksport&sortBy=latest &apiKey=27819ced7daf46d5ac106af434a7c7db
          */
-        Call<NewsResponse> call =apiService.getTopNews("talksport" , "latest" , "27819ced7daf46d5ac106af434a7c7db");
+        Log.e("eee" , newsOrder);
+        Call<NewsResponse> call =apiService.getTopNews("talksport" , newsOrder , "27819ced7daf46d5ac106af434a7c7db");
         call.enqueue(new Callback<NewsResponse>() {
             @Override
             public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
