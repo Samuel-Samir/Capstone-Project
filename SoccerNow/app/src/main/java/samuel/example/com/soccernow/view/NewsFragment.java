@@ -24,59 +24,16 @@ import samuel.example.com.soccernow.model.NewsResponse;
 
 public class NewsFragment extends Fragment {
 
-    private RecyclerView mRecyclerView;
-    private NewsAdapter newsAdapter;
-    private String newsOrder="";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_top_news, container, false);
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            int myInt = bundle.getInt(ContentActivity.NEWS_TYPE);
-            if(myInt==0) {
-                newsOrder = "top";
-            }
-            else if (myInt==1) {
-                newsOrder = "latest";
-            }
 
-        }
-        newsAdapter = new NewsAdapter();
-        mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(newsAdapter);
-        loadNewsResponse ();
         return  rootView ;
     }
 
-
-    public void loadNewsResponse ()
-    {
-        ApiInterface apiService = ApiInterface.ApiClient.getClient().create(ApiInterface.class);
-        /*
-
- https://newsapi.org/v1/articles?source=talksport&sortBy=latest &apiKey=27819ced7daf46d5ac106af434a7c7db
-         */
-        Log.e("eee" , newsOrder);
-        Call<NewsResponse> call =apiService.getTopNews("talksport" , newsOrder , "27819ced7daf46d5ac106af434a7c7db");
-        call.enqueue(new Callback<NewsResponse>() {
-            @Override
-            public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
-
-                List<Article> articleList = response.body().getArticles();
-
-                newsAdapter.setApiResponse(articleList);
-            }
-
-            @Override
-            public void onFailure(Call<NewsResponse> call, Throwable t) {
-
-                Toast.makeText(getContext() , " error" , Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
 
 }

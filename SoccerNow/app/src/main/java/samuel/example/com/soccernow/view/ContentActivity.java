@@ -82,18 +82,13 @@ public class ContentActivity extends AppCompatActivity
         public Fragment getItem(int position) {
             switch (position) {
                 case 0: {
-                    NewsFragment newsFragment = new NewsFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putInt(NEWS_TYPE, 0);
-                    newsFragment.setArguments(bundle);
-                    return new NewsFragment();
+
+                    return new TopNewsFragment();
                 }
                 case 1: {
-                    NewsFragment newsFragment = new NewsFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putInt(NEWS_TYPE, 1);
-                    newsFragment.setArguments(bundle);
-                    return new NewsFragment();                }
+
+                    return new LatestNewsFragment();
+                }
                 default:
                     return null;
             }
