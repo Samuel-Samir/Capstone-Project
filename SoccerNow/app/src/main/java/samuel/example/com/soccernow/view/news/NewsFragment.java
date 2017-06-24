@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import samuel.example.com.soccernow.R;
 
@@ -29,8 +30,18 @@ public class NewsFragment extends Fragment {
         viewPager = (ViewPager) rootView.findViewById(R.id.viewPager);
 
         tabLayout = (TabLayout) rootView.findViewById(R.id.tabLayout);
+
+        setFragents () ;
+        return  rootView ;
+    }
+
+
+
+    private  void setFragents ()
+    {
         tabLayout.setupWithViewPager(viewPager);
-        viewPager.setAdapter(new NewsFragment.CustomAdapter(getActivity().getSupportFragmentManager(), getActivity().getApplicationContext()));
+        CustomAdapter  customAdapter = new CustomAdapter( getActivity().getSupportFragmentManager(), getActivity().getApplicationContext());
+        viewPager.setAdapter(customAdapter);
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -48,11 +59,7 @@ public class NewsFragment extends Fragment {
                 viewPager.setCurrentItem(tab.getPosition());
             }
         });
-
-        return  rootView ;
     }
-
-
 
     private class CustomAdapter extends FragmentPagerAdapter {
 
@@ -66,8 +73,10 @@ public class NewsFragment extends Fragment {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0: {
+                    Toast.makeText(getContext() , "hello" ,Toast.LENGTH_SHORT).show();
 
                     return new TopNewsFragment();
+
                 }
                 case 1: {
 

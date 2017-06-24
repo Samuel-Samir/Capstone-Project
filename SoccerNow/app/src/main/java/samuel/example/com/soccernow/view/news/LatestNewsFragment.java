@@ -39,6 +39,13 @@ public class LatestNewsFragment extends Fragment {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(newsAdapter);
+
+        newsAdapter.setRecyclerViewCallback(new NewsAdapter.RecyclerViewCallback() {
+            @Override
+            public void onItemClick(int position) {
+
+            }
+        });
         loadNewsResponse ();
         return  rootView ;
     }

@@ -2,6 +2,7 @@ package samuel.example.com.soccernow.view.news;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,6 +27,12 @@ public class TopNewsFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private NewsAdapter newsAdapter;
+    private List<Article> topNewsArticles ;
+    public static String BUNDLE_TOP_NEWS ="topNews";
+    public static String TOP_NEWS_TAG ="topNewsTag";
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,6 +47,13 @@ public class TopNewsFragment extends Fragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(newsAdapter);
         loadNewsResponse ();
+
+        newsAdapter.setRecyclerViewCallback(new NewsAdapter.RecyclerViewCallback() {
+            @Override
+            public void onItemClick(int position) {
+
+            }
+        });
         return  rootView ;
     }
 
@@ -47,18 +61,14 @@ public class TopNewsFragment extends Fragment {
     public void loadNewsResponse ()
     {
         ApiInterface apiService = ApiInterface.ApiClient.getClient().create(ApiInterface.class);
-        /*
-
- https://newsapi.org/v1/articles?source=talksport&sortBy=latest &apiKey=27819ced7daf46d5ac106af434a7c7db
-         */
         Call<NewsResponse> call =apiService.getTopNews("talksport" , "top" , "27819ced7daf46d5ac106af434a7c7db");
         call.enqueue(new Callback<NewsResponse>() {
             @Override
             public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
 
-                List<Article> articleList = response.body().getArticles();
+                topNewsArticles = response.body().getArticles();
 
-                newsAdapter.setApiResponse(articleList);
+                newsAdapter.setApiResponse(topNewsArticles);
             }
 
             @Override
