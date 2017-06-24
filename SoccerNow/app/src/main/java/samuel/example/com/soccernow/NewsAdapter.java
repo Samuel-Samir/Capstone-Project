@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -51,6 +52,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.RecyclerViewAd
         final Article article = articleList.get(position);
         holder.article_auther.setText(article.getAuthor());
         holder.article_title.setText(article.getTitle());
+        String [] dateSplited = article.getPublishedAt().split("T");
+        holder.date.setText(dateSplited[0]);
         Picasso.with(holder.context)
                 .load(article.getUrlToImage())
                 .placeholder(R.drawable.p1)
@@ -58,7 +61,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.RecyclerViewAd
                 .into(holder.article_icon);
 
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
+        holder.layoutParent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 recyclerViewCallback.onItemClick(position);
@@ -76,20 +79,22 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.RecyclerViewAd
     }
 
     public class RecyclerViewAdapterHolder extends RecyclerView.ViewHolder {
-        private CardView cardView ;
+        private LinearLayout layoutParent ;
         private ImageView article_icon  ;
         private TextView article_title ;
         private TextView article_auther ;
+        private TextView date ;
         private Context context ;
 
 
         public RecyclerViewAdapterHolder(View itemView) {
             super(itemView);
             context =  itemView.getContext() ;
-            cardView =(CardView) itemView.findViewById(R.id.news_cardView);
+            layoutParent =(LinearLayout) itemView.findViewById(R.id.layoutParent);
             article_icon= (ImageView) itemView.findViewById(R.id.icon_news);
             article_auther= (TextView) itemView.findViewById(R.id.author_text_view);
             article_title= (TextView) itemView.findViewById(R.id.title_text_view);
+            date = (TextView) itemView.findViewById(R.id.date);
 
         }
 

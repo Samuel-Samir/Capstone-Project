@@ -1,5 +1,7 @@
 package samuel.example.com.soccernow.view.news;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -52,6 +54,11 @@ public class TopNewsFragment extends Fragment {
             @Override
             public void onItemClick(int position) {
 
+                Uri webpage = Uri.parse(topNewsArticles.get(position).getUrl());
+                Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivity(intent);
+                }
             }
         });
         return  rootView ;

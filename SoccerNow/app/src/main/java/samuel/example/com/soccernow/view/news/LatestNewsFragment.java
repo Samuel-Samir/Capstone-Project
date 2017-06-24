@@ -1,6 +1,8 @@
 package samuel.example.com.soccernow.view.news;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,6 +31,8 @@ public class LatestNewsFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private NewsAdapter newsAdapter;
+    private List<Article> latestNewsArticles ;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,7 +47,11 @@ public class LatestNewsFragment extends Fragment {
         newsAdapter.setRecyclerViewCallback(new NewsAdapter.RecyclerViewCallback() {
             @Override
             public void onItemClick(int position) {
-
+                Uri webpage = Uri.parse("geo:"+latestNewsArticles.get(position).getUrl());
+                Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivity(intent);
+                }
             }
         });
         loadNewsResponse ();
@@ -54,18 +62,15 @@ public class LatestNewsFragment extends Fragment {
     public void loadNewsResponse ()
     {
         ApiInterface apiService = ApiInterface.ApiClient.getClient().create(ApiInterface.class);
-        /*
 
- https://newsapi.org/v1/articles?source=talksport&sortBy=latest &apiKey=27819ced7daf46d5ac106af434a7c7db
-         */
         Call<NewsResponse> call =apiService.getTopNews("talksport" , "latest" , "27819ced7daf46d5ac106af434a7c7db");
         call.enqueue(new Callback<NewsResponse>() {
             @Override
             public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
 
-                List<Article> articleList = response.body().getArticles();
+                latestNewsArticles = response.body().getArticles();
 
-                newsAdapter.setApiResponse(articleList);
+                newsAdapter.setApiResponse(latestNewsArticles);
             }
 
             @Override
