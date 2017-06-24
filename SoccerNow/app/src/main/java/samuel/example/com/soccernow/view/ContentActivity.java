@@ -1,16 +1,10 @@
 package samuel.example.com.soccernow.view;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import samuel.example.com.soccernow.R;
+import samuel.example.com.soccernow.view.news.NewsFragment;
 
 public class ContentActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -90,11 +85,16 @@ public class ContentActivity extends AppCompatActivity
 
         if (id == R.id.nav_news) {
 
-          //startActivity(new Intent(ContentActivity.this , NewsActivity.class));
-        }
-        /*else if (id == R.id.nav_gallery) {
+            mFragmentManager = getSupportFragmentManager();
+            mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.replace(R.id.content_main,new NewsFragment()).commit();        }
+        else  {
 
-        } else if (id == R.id.nav_slideshow) {
+            mFragmentManager = getSupportFragmentManager();
+            mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.replace(R.id.content_main,new League()).commit();
+
+        } /*else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
 

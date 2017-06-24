@@ -1,10 +1,10 @@
-package samuel.example.com.soccernow.view;
-
+package samuel.example.com.soccernow.view.news;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +21,8 @@ import samuel.example.com.soccernow.R;
 import samuel.example.com.soccernow.model.Article;
 import samuel.example.com.soccernow.model.NewsResponse;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class LatestNewsFragment extends Fragment {
 
+public class TopNewsFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private NewsAdapter newsAdapter;
@@ -33,9 +30,9 @@ public class LatestNewsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_latest_news, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_top_news, container, false);
 
-        // newsOrder = "top";
+       // newsOrder = "top";
         //newsOrder = "latest";
 
         newsAdapter = new NewsAdapter();
@@ -54,7 +51,7 @@ public class LatestNewsFragment extends Fragment {
 
  https://newsapi.org/v1/articles?source=talksport&sortBy=latest &apiKey=27819ced7daf46d5ac106af434a7c7db
          */
-        Call<NewsResponse> call =apiService.getTopNews("talksport" , "latest" , "27819ced7daf46d5ac106af434a7c7db");
+        Call<NewsResponse> call =apiService.getTopNews("talksport" , "top" , "27819ced7daf46d5ac106af434a7c7db");
         call.enqueue(new Callback<NewsResponse>() {
             @Override
             public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
