@@ -2,11 +2,14 @@ package samuel.example.com.soccernow.view.news;
 
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +37,7 @@ public class LatestNewsFragment extends Fragment {
     private NewsAdapter newsAdapter;
     private List<Article> latestNewsArticles ;
     private ProgressBar progressBar;
+    private String LATEST_SAVE_INSTANCESTATE= "savedInstances";
 
 
     @Override
@@ -43,9 +47,9 @@ public class LatestNewsFragment extends Fragment {
 
         newsAdapter = new NewsAdapter();
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(newsAdapter);
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+
+        onOrientationChange(getResources().getConfiguration().orientation , savedInstanceState);
 
         newsAdapter.setRecyclerViewCallback(new NewsAdapter.RecyclerViewCallback() {
             @Override
@@ -57,36 +61,86 @@ public class LatestNewsFragment extends Fragment {
                 }
             }
         });
-        loadNewsResponse ();
         return  rootView ;
     }
 
 
-    public void loadNewsResponse ()
-    {
-        ApiInterface apiService = ApiInterface.ApiClient.getClient().create(ApiInterface.class);
+    public void onOrientationChange(int orientation ,  Bundle savedInstanceState){
+        int landScape=2;
+        int portrait= 1;
+        DisplayMetrics metrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        Call<NewsResponse> call =apiService.getTopNews("talksport" , "latest" , "27819ced7daf46d5ac106af434a7c7db");
-        call.enqueue(new Callback<NewsResponse>() {
-            @Override
-            public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
+        int widthPixels = metrics.widthPixels;
+        int heightPixels = metrics.heightPixels;
+        if (widthPixels>=1023 || heightPixels>=1023)
+        {
+            landScape=3;
+            portrait=2;
+        }
 
-                latestNewsArticles = response.body().getArticles();
+        if(orientation == Configuration.ORIENTATION_PORTRAIT){
+            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(portrait, StaggeredGridLayoutManager.VERTICAL ));
+            mRecyclerView.setAdapter(newsAdapter);
 
-                newsAdapter.setApiResponse(latestNewsArticles);
-                progressBar.setVisibility(View.GONE);
+        }
+        else if(orientation == Configuration.ORIENTATION_LANDSCAPE){
 
-            }
+            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(landScape, StaggeredGridLayoutManager.VERTICAL ));
+            mRecyclerView.setAdapter(newsAdapter);
 
-            @Override
-            public void onFailure(Call<NewsResponse> call, Throwable t) {
+        }
+        loadNewsResponse (savedInstanceState);
 
-                Toast.makeText(getContext() , " error" , Toast.LENGTH_SHORT).show();
-                progressBar.setVisibility(View.GONE);
-
-            }
-        });
     }
 
 
+    public void loadNewsResponse ( Bundle savedInstanceState)
+    {
+        if (savedInstanceState==null) {
+            ApiInterface apiService = ApiInterface.ApiClient.getClient().create(ApiInterface.class);
+
+            Call<NewsResponse> call = apiService.getTopNews("talksport", "latest", "27819ced7daf46d5ac106af434a7c7db");
+            call.enqueue(new Callback<NewsResponse>() {
+                @Override
+                public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
+
+                    latestNewsArticles = response.body().getArticles();
+
+                    newsAdapter.setApiResponse(latestNewsArticles);
+                    progressBar.setVisibility(View.GONE);
+
+                }
+
+                @Override
+                public void onFailure(Call<NewsResponse> call, Throwable t) {
+
+                    Toast.makeText(getContext(), " error", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+
+                }
+            });
+        }
+
+        else if (savedInstanceState!=null)
+        {
+
+            NewsResponse newsResponse =   savedInstanceState.getParcelable(LATEST_SAVE_INSTANCESTATE);
+
+            if(newsResponse.getArticles()!=null)
+            {
+                latestNewsArticles = newsResponse.getArticles();
+                newsAdapter.setApiResponse(latestNewsArticles);
+            }
+        }
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        NewsResponse newsResponse = new NewsResponse() ;
+        newsResponse.setArticles(latestNewsArticles);
+        outState.putParcelable(  LATEST_SAVE_INSTANCESTATE , newsResponse);
+    }
 }

@@ -42,7 +42,7 @@ public class NewsFragment extends Fragment {
     private  void setFragments ()
     {
         tabLayout.setupWithViewPager(viewPager);
-        ViewPagerAdapter customAdapter = new ViewPagerAdapter( getActivity().getSupportFragmentManager());
+        ViewPagerAdapter customAdapter = new ViewPagerAdapter( getChildFragmentManager());
 
         ArrayList <String> fragmentsNames = new ArrayList<>();
         fragmentsNames.add(getResources().getString(R.string.top_news));
