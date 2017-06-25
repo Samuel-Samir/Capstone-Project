@@ -88,9 +88,10 @@ public class ContentActivity extends AppCompatActivity
 
         if (id == R.id.nav_news) {
 
-            /*mFragmentManager = getSupportFragmentManager();
+            mFragmentManager = getSupportFragmentManager();
             mFragmentTransaction = mFragmentManager.beginTransaction();
-            mFragmentTransaction.replace(R.id.content_main,new NewsFragment()).commit();    */    }
+            mFragmentTransaction.replace(R.id.content_main,new NewsFragment()).commit();
+        }
         else  {
 
             mFragmentManager = getSupportFragmentManager();

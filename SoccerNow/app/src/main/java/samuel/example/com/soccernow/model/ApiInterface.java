@@ -1,11 +1,11 @@
-package samuel.example.com.soccernow;
+package samuel.example.com.soccernow.model;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import samuel.example.com.soccernow.model.NewsResponse;
+import samuel.example.com.soccernow.model.articleModel.NewsResponse;
 
 /**
  * Created by samuel on 6/16/2017.

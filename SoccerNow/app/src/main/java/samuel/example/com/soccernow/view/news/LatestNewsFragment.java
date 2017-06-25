@@ -18,11 +18,11 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import samuel.example.com.soccernow.ApiInterface;
-import samuel.example.com.soccernow.NewsAdapter;
+import samuel.example.com.soccernow.model.ApiInterface;
+import samuel.example.com.soccernow.adapter.NewsAdapter;
 import samuel.example.com.soccernow.R;
-import samuel.example.com.soccernow.model.Article;
-import samuel.example.com.soccernow.model.NewsResponse;
+import samuel.example.com.soccernow.model.articleModel.Article;
+import samuel.example.com.soccernow.model.articleModel.NewsResponse;
 
 /**
  * A simple {@link Fragment} subclass.

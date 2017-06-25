@@ -1,7 +1,6 @@
-package samuel.example.com.soccernow;
+package samuel.example.com.soccernow.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import samuel.example.com.soccernow.model.Article;
+import samuel.example.com.soccernow.R;
+import samuel.example.com.soccernow.model.articleModel.Article;
 
 /**
  * Created by samuel on 6/16/2017.

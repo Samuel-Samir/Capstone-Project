@@ -1,14 +1,11 @@
 package samuel.example.com.soccernow.view.news;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +17,11 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import samuel.example.com.soccernow.ApiInterface;
-import samuel.example.com.soccernow.NewsAdapter;
+import samuel.example.com.soccernow.model.ApiInterface;
+import samuel.example.com.soccernow.adapter.NewsAdapter;
 import samuel.example.com.soccernow.R;
-import samuel.example.com.soccernow.model.Article;
-import samuel.example.com.soccernow.model.NewsResponse;
+import samuel.example.com.soccernow.model.articleModel.Article;
+import samuel.example.com.soccernow.model.articleModel.NewsResponse;
 
 
 public class TopNewsFragment extends Fragment {

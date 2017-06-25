@@ -14,10 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import samuel.example.com.soccernow.R;
+import samuel.example.com.soccernow.adapter.ViewPagerAdapter;
 
 public class NewsFragment extends Fragment {
-
 
     TabLayout tabLayout;
     ViewPager viewPager;
@@ -26,24 +29,31 @@ public class NewsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_news, container, false);
 
-        //LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.LinearLayout);
 
         viewPager = (ViewPager) rootView.findViewById(R.id.viewPager);
 
         tabLayout = (TabLayout) rootView.findViewById(R.id.tabLayout);
 
-        setFragents () ;
+        setFragments () ;
         return  rootView ;
     }
 
 
-
-    private  void setFragents ()
+    private  void setFragments ()
     {
         tabLayout.setupWithViewPager(viewPager);
-        CustomAdapter  customAdapter = new CustomAdapter( getActivity().getSupportFragmentManager(), getActivity().getApplicationContext());
-        viewPager.setAdapter(customAdapter);
+        ViewPagerAdapter customAdapter = new ViewPagerAdapter( getActivity().getSupportFragmentManager());
 
+        ArrayList <String> fragmentsNames = new ArrayList<>();
+        fragmentsNames.add(getResources().getString(R.string.top_news));
+        fragmentsNames.add(getResources().getString(R.string.latest_news));
+
+        ArrayList<Fragment> fragmentsList =new ArrayList<>();
+        fragmentsList.add(new TopNewsFragment());
+        fragmentsList.add(new LatestNewsFragment());
+        customAdapter.setData(fragmentsNames ,fragmentsList);
+
+        viewPager.setAdapter(customAdapter);
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -61,52 +71,5 @@ public class NewsFragment extends Fragment {
             }
         });
     }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        getActivity().setContentView(R.layout.fragment_news);
-        setFragents ();
-    }
-
-
-    private class CustomAdapter extends FragmentPagerAdapter {
-
-        private String fragments[] = {getResources().getString(R.string.top_news) , getResources().getString(R.string.latest_news) };
-
-        public CustomAdapter(FragmentManager supportFragmentManager, Context applicationContext) {
-            super(supportFragmentManager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 0: {
-                    Toast.makeText(getContext() , "hello" ,Toast.LENGTH_SHORT).show();
-
-                    return new TopNewsFragment();
-
-                }
-                case 1: {
-
-                    return new LatestNewsFragment();
-                }
-                default:
-                    return null;
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return fragments.length;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return fragments[position];
-        }
-    }
-
-
 
 }

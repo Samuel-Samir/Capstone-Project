@@ -94,6 +94,7 @@
             android:layout_height="209dp"
             android:src="@drawable/p1"
             android:id="@+id/icon_news"
+            android:scaleType="fitXY"
             />
 
         <TextView
