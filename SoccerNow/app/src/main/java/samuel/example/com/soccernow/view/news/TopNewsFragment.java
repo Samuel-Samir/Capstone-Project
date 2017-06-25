@@ -1,6 +1,7 @@
 package samuel.example.com.soccernow.view.news;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.List;
@@ -30,6 +32,7 @@ public class TopNewsFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private NewsAdapter newsAdapter;
     private List<Article> topNewsArticles ;
+    private ProgressBar progressBar;
     public static String BUNDLE_TOP_NEWS ="topNews";
     public static String TOP_NEWS_TAG ="topNewsTag";
 
@@ -41,13 +44,15 @@ public class TopNewsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_top_news, container, false);
 
-       // newsOrder = "top";
-        //newsOrder = "latest";
 
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         newsAdapter = new NewsAdapter();
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(newsAdapter);
+        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
+
         loadNewsResponse ();
 
         newsAdapter.setRecyclerViewCallback(new NewsAdapter.RecyclerViewCallback() {
@@ -76,12 +81,16 @@ public class TopNewsFragment extends Fragment {
                 topNewsArticles = response.body().getArticles();
 
                 newsAdapter.setApiResponse(topNewsArticles);
+                progressBar.setVisibility(View.GONE);
+
             }
 
             @Override
             public void onFailure(Call<NewsResponse> call, Throwable t) {
 
                 Toast.makeText(getContext() , " error" , Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
+
             }
         });
     }

@@ -2,6 +2,7 @@ package samuel.example.com.soccernow.view.news;
 
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -60,6 +61,14 @@ public class NewsFragment extends Fragment {
             }
         });
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        getActivity().setContentView(R.layout.fragment_news);
+        setFragents ();
+    }
+
 
     private class CustomAdapter extends FragmentPagerAdapter {
 

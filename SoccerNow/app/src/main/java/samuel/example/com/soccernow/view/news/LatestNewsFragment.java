@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class LatestNewsFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private NewsAdapter newsAdapter;
     private List<Article> latestNewsArticles ;
+    private ProgressBar progressBar;
 
 
     @Override
@@ -43,6 +45,7 @@ public class LatestNewsFragment extends Fragment {
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(newsAdapter);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
 
         newsAdapter.setRecyclerViewCallback(new NewsAdapter.RecyclerViewCallback() {
             @Override
@@ -71,12 +74,16 @@ public class LatestNewsFragment extends Fragment {
                 latestNewsArticles = response.body().getArticles();
 
                 newsAdapter.setApiResponse(latestNewsArticles);
+                progressBar.setVisibility(View.GONE);
+
             }
 
             @Override
             public void onFailure(Call<NewsResponse> call, Throwable t) {
 
                 Toast.makeText(getContext() , " error" , Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
+
             }
         });
     }

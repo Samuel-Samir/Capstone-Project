@@ -1,5 +1,6 @@
 package samuel.example.com.soccernow.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -43,6 +44,8 @@ public class ContentActivity extends AppCompatActivity
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.replace(R.id.content_main,new NewsFragment()).commit();
+
+
     }
 
     @Override
@@ -85,9 +88,9 @@ public class ContentActivity extends AppCompatActivity
 
         if (id == R.id.nav_news) {
 
-            mFragmentManager = getSupportFragmentManager();
+            /*mFragmentManager = getSupportFragmentManager();
             mFragmentTransaction = mFragmentManager.beginTransaction();
-            mFragmentTransaction.replace(R.id.content_main,new NewsFragment()).commit();        }
+            mFragmentTransaction.replace(R.id.content_main,new NewsFragment()).commit();    */    }
         else  {
 
             mFragmentManager = getSupportFragmentManager();
