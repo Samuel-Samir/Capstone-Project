@@ -107,7 +107,7 @@ public class TopNewsFragment extends Fragment {
         if (savedInstanceState==null) {
             ApiInterface apiService = ApiInterface.ApiClient.getClient().create(ApiInterface.class);
 
-            Call<NewsResponse> call = apiService.getTopNews("talksport", "latest", "27819ced7daf46d5ac106af434a7c7db");
+            Call<NewsResponse> call = apiService.getTopNews(getResources().getString(R.string.news_source), getResources().getString(R.string.top_Order), getResources().getString(R.string.news_api_key));
             call.enqueue(new Callback<NewsResponse>() {
                 @Override
                 public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {

@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import samuel.example.com.soccernow.R;
 import samuel.example.com.soccernow.view.news.NewsFragment;
 
+import static samuel.example.com.soccernow.view.news.NewsFragment.TAG_NEWS_FRAGMENT;
+
 public class ContentActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -43,7 +45,7 @@ public class ContentActivity extends AppCompatActivity
 
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.replace(R.id.content_main,new NewsFragment()).commit();
+        mFragmentTransaction.replace(R.id.content_main,new NewsFragment() , TAG_NEWS_FRAGMENT).commit();
 
 
     }

@@ -24,6 +24,7 @@ public class NewsFragment extends Fragment {
 
     TabLayout tabLayout;
     ViewPager viewPager;
+    public static  String TAG_NEWS_FRAGMENT = "newsFragments";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
