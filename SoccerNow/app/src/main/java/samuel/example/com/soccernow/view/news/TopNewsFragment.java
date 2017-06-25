@@ -105,6 +105,7 @@ public class TopNewsFragment extends Fragment {
     public void loadNewsResponse ( Bundle savedInstanceState)
     {
         if (savedInstanceState==null) {
+
             ApiInterface apiService = ApiInterface.ApiClient.getClient().create(ApiInterface.class);
 
             Call<NewsResponse> call = apiService.getTopNews(getResources().getString(R.string.news_source), getResources().getString(R.string.top_Order), getResources().getString(R.string.news_api_key));

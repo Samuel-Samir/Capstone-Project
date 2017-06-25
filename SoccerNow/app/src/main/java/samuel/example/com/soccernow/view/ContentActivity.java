@@ -14,12 +14,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import samuel.example.com.soccernow.R;
+import samuel.example.com.soccernow.SoccerNowApp;
+import samuel.example.com.soccernow.model.ConnectivityReceiver;
 import samuel.example.com.soccernow.view.news.NewsFragment;
 
+import static samuel.example.com.soccernow.utilities.checkInternetConnection;
+import static samuel.example.com.soccernow.utilities.showSnackbar;
+import static samuel.example.com.soccernow.utilities.showSnackbarDisconnected;
 import static samuel.example.com.soccernow.view.news.NewsFragment.TAG_NEWS_FRAGMENT;
 
 public class ContentActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener ,  ConnectivityReceiver.ConnectivityReceiverListener {
 
 
     public static String NEWS_TYPE = "newsType" ;
@@ -43,9 +48,13 @@ public class ContentActivity extends AppCompatActivity
         navigationView.setCheckedItem(R.id.nav_news);
         navigationView.setNavigationItemSelectedListener(this);
 
+        if (!checkInternetConnection()) {
+            showSnackbarDisconnected(findViewById(android.R.id.content), this);
+        }
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.replace(R.id.content_main,new NewsFragment() , TAG_NEWS_FRAGMENT).commit();
+
 
 
     }
@@ -113,5 +122,17 @@ public class ContentActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        SoccerNowApp.getInstance().setConnectivityListener(ContentActivity.this);
+    }
+
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+        showSnackbar(isConnected, findViewById(android.R.id.content), this);
     }
 }

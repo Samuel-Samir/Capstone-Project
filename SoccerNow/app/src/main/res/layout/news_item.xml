@@ -11,9 +11,9 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_16"
 
         >
 
@@ -23,27 +23,28 @@
             >
 
             <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="@dimen/small_pic"
+                android:layout_height="@dimen/small_pic"
                 android:src="@drawable/sb"
                 android:id="@+id/imageView"
                 android:scaleType="fitXY"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp" />
+                android:layout_marginTop="@dimen/dp_16"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginLeft="@dimen/dp_16"
+                />
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Sport Bible"
-                android:textSize="18sp"
+                android:textSize="@dimen/text_size"
                 android:layout_toRightOf="@+id/imageView"
                 android:layout_toEndOf="@+id/imageView"
-                android:paddingTop="16dp"
-                android:paddingBottom="16dp"
-                android:paddingStart="4dp"
-                android:paddingLeft="4dp"
+                android:paddingTop="@dimen/dp_16"
+                android:paddingBottom="@dimen/dp_16"
+                android:paddingStart="@dimen/dp_4"
+                android:paddingLeft="@dimen/dp_4"
                 android:textStyle="bold"
 
                 />
@@ -53,8 +54,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="samuel samir "
-                android:textSize="18sp"
-                android:padding="16dp"
+                android:textSize="@dimen/text_size"
+                android:padding="@dimen/dp_16"
                 android:gravity="end"
                 android:id="@+id/date"
 
@@ -68,10 +69,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/news_cardView"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_4"
+        android:layout_marginBottom="@dimen/dp_16"
     >
 
     <LinearLayout
@@ -84,14 +85,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="samuel samir "
-            android:textSize="18sp"
-            android:textColor="#000"
-            android:padding="16dp"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/black"
+            android:padding="@dimen/dp_16"
             android:id="@+id/author_text_view"
             />
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="209dp"
+            android:layout_height="@dimen/big_pic"
             android:src="@drawable/p1"
             android:id="@+id/icon_news"
             android:scaleType="fitXY"
@@ -101,9 +102,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="samuel samir "
-            android:textSize="18sp"
-            android:textColor="#000"
-            android:padding="16dp"
+            android:textSize="@dimen/text_size"
+            android:textColor="@color/black"
+            android:padding="@dimen/dp_16"
             android:id="@+id/title_text_view"
 
             />

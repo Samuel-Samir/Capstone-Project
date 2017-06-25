@@ -24,6 +24,7 @@ public class SoccerNowApp  extends Application {
     }
 
     public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
-        ConnectivityReceiver.mConnectivityReceiverListener = listener;
+        if(listener!=null)
+             ConnectivityReceiver.connectivityReceiverListener  = listener;
     }
 }

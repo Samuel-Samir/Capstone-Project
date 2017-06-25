@@ -4,17 +4,17 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import samuel.example.com.soccernow.SoccerNowApp;
 
 /**
  * Created by samuel on 6/25/2017.
  */
-
 public class ConnectivityReceiver
         extends BroadcastReceiver {
 
-    public static ConnectivityReceiverListener mConnectivityReceiverListener;
+    public static ConnectivityReceiverListener connectivityReceiverListener;
 
     public ConnectivityReceiver() {
         super();
@@ -22,28 +22,24 @@ public class ConnectivityReceiver
 
     @Override
     public void onReceive(Context context, Intent arg1) {
-        ConnectivityManager con_manager = (ConnectivityManager) context
+        ConnectivityManager cm = (ConnectivityManager) context
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null
+                && activeNetwork.isConnectedOrConnecting();
 
-        boolean isConnected = con_manager.getActiveNetworkInfo() != null
-                && con_manager.getActiveNetworkInfo().isAvailable()
-                && con_manager.getActiveNetworkInfo().isConnected();
-
-
-        if (mConnectivityReceiverListener != null) {
-            mConnectivityReceiverListener.onNetworkConnectionChanged(isConnected);
+        if (connectivityReceiverListener != null) {
+            connectivityReceiverListener.onNetworkConnectionChanged(isConnected);
         }
     }
 
     public static boolean isConnected() {
-
-        ConnectivityManager con_manager = (ConnectivityManager) SoccerNowApp.getInstance().getApplicationContext()
+        ConnectivityManager
+                cm = (ConnectivityManager) SoccerNowApp.getInstance().getApplicationContext()
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        return con_manager.getActiveNetworkInfo() != null
-                && con_manager.getActiveNetworkInfo().isAvailable()
-                && con_manager.getActiveNetworkInfo().isConnected();
-
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null
+                && activeNetwork.isConnectedOrConnecting();
     }
 
 

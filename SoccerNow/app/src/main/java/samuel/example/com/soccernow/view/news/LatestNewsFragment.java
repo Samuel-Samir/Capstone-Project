@@ -54,7 +54,7 @@ public class LatestNewsFragment extends Fragment {
         newsAdapter.setRecyclerViewCallback(new NewsAdapter.RecyclerViewCallback() {
             @Override
             public void onItemClick(int position) {
-                Uri webpage = Uri.parse("geo:"+latestNewsArticles.get(position).getUrl());
+                Uri webpage = Uri.parse(latestNewsArticles.get(position).getUrl());
                 Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
                 if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
                     startActivity(intent);

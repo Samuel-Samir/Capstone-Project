@@ -39,4 +39,5 @@ public class utilities {
         sbView.setBackgroundColor(ContextCompat.getColor(context, R.color.red));
         snackbar.show();
     }
+
 }
