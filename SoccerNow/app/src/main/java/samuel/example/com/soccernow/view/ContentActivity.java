@@ -12,10 +12,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import samuel.example.com.soccernow.R;
 import samuel.example.com.soccernow.SoccerNowApp;
+import samuel.example.com.soccernow.model.ApiInterface;
 import samuel.example.com.soccernow.model.ConnectivityReceiver;
+import samuel.example.com.soccernow.model.football.Competition;
+import samuel.example.com.soccernow.utilities;
 import samuel.example.com.soccernow.view.news.NewsFragment;
 
 import static samuel.example.com.soccernow.utilities.checkInternetConnection;
@@ -51,10 +60,11 @@ public class ContentActivity extends AppCompatActivity
         if (!checkInternetConnection()) {
             showSnackbarDisconnected(findViewById(android.R.id.content), this);
         }
+
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.replace(R.id.content_main,new NewsFragment() , TAG_NEWS_FRAGMENT).commit();
-
+        loadCompetitionsNewsResponse ();
 
 
     }
@@ -134,5 +144,28 @@ public class ContentActivity extends AppCompatActivity
     @Override
     public void onNetworkConnectionChanged(boolean isConnected) {
         showSnackbar(isConnected, findViewById(android.R.id.content), this);
+    }
+
+    public void loadCompetitionsNewsResponse ( )
+    {
+
+        ApiInterface apiService = ApiInterface.ApiClientFootBall.getClient().create(ApiInterface.class);
+
+        Call<List<Competition> > call = apiService.getf() ;
+        call.enqueue(new Callback<List<Competition>>() {
+            @Override
+            public void onResponse(Call<List<Competition>> call, Response<List<Competition>> response) {
+                utilities.competitions = response.body();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Competition>> call, Throwable t) {
+                Toast.makeText(getBaseContext(), " error", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
     }
 }
