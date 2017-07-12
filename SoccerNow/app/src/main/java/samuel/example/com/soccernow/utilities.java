@@ -8,14 +8,12 @@ import android.view.View;
 import java.util.List;
 
 import samuel.example.com.soccernow.model.ConnectivityReceiver;
-import samuel.example.com.soccernow.model.football.Competition;
 
 /**
  * Created by samuel on 6/25/2017.
  */
 
 public class utilities {
-    public static List<Competition> competitions ;
 
 
     public static boolean checkInternetConnection() {

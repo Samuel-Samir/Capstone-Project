@@ -11,7 +11,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import samuel.example.com.soccernow.model.articleModel.NewsResponse;
-import samuel.example.com.soccernow.model.football.Competition;
+import samuel.example.com.soccernow.model.football.LeagueTableResponse;
 
 /**
  * Created by samuel on 6/16/2017.
@@ -33,7 +33,7 @@ public interface ApiInterface {
 
     @Headers("X-Auth-Token: 8899bb9e61d04e20b2de5ec3d26e5ecf")
     @GET("competitions/{champion_id}/leagueTable")
-    Call<List<Competition>>  getLeagueTable(@Path("champion_id") int championId);
+    Call<LeagueTableResponse>  getLeagueTable (@Path("champion_id") int championId);
 
     class ApiClient {
 

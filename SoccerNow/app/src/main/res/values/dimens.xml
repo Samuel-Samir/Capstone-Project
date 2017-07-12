@@ -7,8 +7,10 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="recycler_view_padding">32dp</dimen>
     <dimen name="dp_4">4dp</dimen>
+    <dimen name="dp_8">8dp</dimen>
     <dimen name="dp_16">16dp</dimen>
     <dimen name="small_pic">32dp</dimen>
     <dimen name="text_size">18sp</dimen>
     <dimen name="big_pic">210dp</dimen>
+    <dimen name="defult_text_size">14sp</dimen>
 </resources>

@@ -33,6 +33,7 @@ public class ContentActivity extends AppCompatActivity
     FragmentManager mFragmentManager ;
     FragmentTransaction mFragmentTransaction ;
     public static String CHAMPIONTYPE="chapiontype";
+    public static String CHAMPION_NAME="chapionName";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +112,7 @@ public class ContentActivity extends AppCompatActivity
             chapionCode= 436;
             bundle=new Bundle();
             bundle.putInt(CHAMPIONTYPE , chapionCode);
+            bundle.putString(CHAMPION_NAME,getResources().getString(R.string.primera_division));
             LeagueFragment leagueFragment =new LeagueFragment();
             leagueFragment.setArguments(bundle);
             mFragmentManager = getSupportFragmentManager();
@@ -123,6 +125,7 @@ public class ContentActivity extends AppCompatActivity
             chapionCode= 445;
             bundle=new Bundle();
             bundle.putInt(CHAMPIONTYPE , chapionCode);
+            bundle.putString(CHAMPION_NAME,getResources().getString(R.string.primera_liga));
             LeagueFragment leagueFragment =new LeagueFragment();
             leagueFragment.setArguments(bundle);
             mFragmentManager = getSupportFragmentManager();
@@ -134,6 +137,7 @@ public class ContentActivity extends AppCompatActivity
             chapionCode= 430;
             bundle=new Bundle();
             bundle.putInt(CHAMPIONTYPE , chapionCode);
+            bundle.putString(CHAMPION_NAME,getResources().getString(R.string.bundesliga));
             LeagueFragment leagueFragment =new LeagueFragment();
             leagueFragment.setArguments(bundle);
             mFragmentManager = getSupportFragmentManager();
@@ -145,6 +149,7 @@ public class ContentActivity extends AppCompatActivity
             chapionCode= 450;
             bundle=new Bundle();
             bundle.putInt(CHAMPIONTYPE , chapionCode);
+            bundle.putString(CHAMPION_NAME,getResources().getString(R.string.ligue_1));
             LeagueFragment leagueFragment =new LeagueFragment();
             leagueFragment.setArguments(bundle);
             mFragmentManager = getSupportFragmentManager();
@@ -157,6 +162,7 @@ public class ContentActivity extends AppCompatActivity
             chapionCode= 444;
             bundle=new Bundle();
             bundle.putInt(CHAMPIONTYPE , chapionCode);
+            bundle.putString(CHAMPION_NAME,getResources().getString(R.string.serie_A));
             LeagueFragment leagueFragment =new LeagueFragment();
             leagueFragment.setArguments(bundle);
             mFragmentManager = getSupportFragmentManager();
@@ -169,6 +175,7 @@ public class ContentActivity extends AppCompatActivity
             chapionCode= 446;
             bundle=new Bundle();
             bundle.putInt(CHAMPIONTYPE , chapionCode);
+            bundle.putString(CHAMPION_NAME,getResources().getString(R.string.champions_league));
             LeagueFragment leagueFragment =new LeagueFragment();
             leagueFragment.setArguments(bundle);
             mFragmentManager = getSupportFragmentManager();
@@ -193,27 +200,5 @@ public class ContentActivity extends AppCompatActivity
     public void onNetworkConnectionChanged(boolean isConnected) {
         showSnackbar(isConnected, findViewById(android.R.id.content), this);
     }
-/*
-    public void loadCompetitionsNewsResponse ( )
-    {
 
-        ApiInterface apiService = ApiInterface.ApiClientFootBall.getClient().create(ApiInterface.class);
-
-        Call<List<Competition> > call = apiService.getf() ;
-        call.enqueue(new Callback<List<Competition>>() {
-            @Override
-            public void onResponse(Call<List<Competition>> call, Response<List<Competition>> response) {
-                utilities.competitions = response.body();
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Competition>> call, Throwable t) {
-                Toast.makeText(getBaseContext(), " error", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-
-    }*/
 }
