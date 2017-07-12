@@ -114,7 +114,7 @@ public class Competition {
 
 
         "id": 445,
-        "caption": "Premier League 2017/18",
+        "caption": "Premier LeagueFragment 2017/18",
         "league": "PL",
         "year": "2017",
 

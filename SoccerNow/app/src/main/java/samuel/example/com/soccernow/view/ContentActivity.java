@@ -1,6 +1,5 @@
 package samuel.example.com.soccernow.view;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -12,19 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import samuel.example.com.soccernow.R;
 import samuel.example.com.soccernow.SoccerNowApp;
-import samuel.example.com.soccernow.model.ApiInterface;
 import samuel.example.com.soccernow.model.ConnectivityReceiver;
-import samuel.example.com.soccernow.model.football.Competition;
-import samuel.example.com.soccernow.utilities;
+import samuel.example.com.soccernow.view.football.LeagueFragment;
 import samuel.example.com.soccernow.view.news.NewsFragment;
 
 import static samuel.example.com.soccernow.utilities.checkInternetConnection;
@@ -40,6 +32,7 @@ public class ContentActivity extends AppCompatActivity
 
     FragmentManager mFragmentManager ;
     FragmentTransaction mFragmentTransaction ;
+    public static String CHAMPIONTYPE="chapiontype";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +57,6 @@ public class ContentActivity extends AppCompatActivity
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.replace(R.id.content_main,new NewsFragment() , TAG_NEWS_FRAGMENT).commit();
-        loadCompetitionsNewsResponse ();
 
 
     }
@@ -105,7 +97,9 @@ public class ContentActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        int chapionCode=0;
         int id = item.getItemId();
+        Bundle bundle ;
 
         if (id == R.id.nav_news) {
 
@@ -113,21 +107,75 @@ public class ContentActivity extends AppCompatActivity
             mFragmentTransaction = mFragmentManager.beginTransaction();
             mFragmentTransaction.replace(R.id.content_main,new NewsFragment()).commit();
         }
-        else  {
-
+        else if (id ==R.id.nav_primera_division)  {
+            chapionCode= 436;
+            bundle=new Bundle();
+            bundle.putInt(CHAMPIONTYPE , chapionCode);
+            LeagueFragment leagueFragment =new LeagueFragment();
+            leagueFragment.setArguments(bundle);
             mFragmentManager = getSupportFragmentManager();
             mFragmentTransaction = mFragmentManager.beginTransaction();
-            mFragmentTransaction.replace(R.id.content_main,new League()).commit();
+            mFragmentTransaction.replace(R.id.content_main,leagueFragment).commit();
 
-        } /*else if (id == R.id.nav_slideshow) {
+        }
+        else if (id ==R.id.nav_primera_liga)  {
 
-        } else if (id == R.id.nav_manage) {
+            chapionCode= 445;
+            bundle=new Bundle();
+            bundle.putInt(CHAMPIONTYPE , chapionCode);
+            LeagueFragment leagueFragment =new LeagueFragment();
+            leagueFragment.setArguments(bundle);
+            mFragmentManager = getSupportFragmentManager();
+            mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.replace(R.id.content_main,leagueFragment).commit();
 
-        } else if (id == R.id.nav_share) {
+        }
+        else if (id ==R.id.nav_bundesliga)  {
+            chapionCode= 430;
+            bundle=new Bundle();
+            bundle.putInt(CHAMPIONTYPE , chapionCode);
+            LeagueFragment leagueFragment =new LeagueFragment();
+            leagueFragment.setArguments(bundle);
+            mFragmentManager = getSupportFragmentManager();
+            mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.replace(R.id.content_main,leagueFragment).commit();
+        }
+        else if (id ==R.id.nav_ligue_1)  {
 
-        } else if (id == R.id.nav_send) {
+            chapionCode= 450;
+            bundle=new Bundle();
+            bundle.putInt(CHAMPIONTYPE , chapionCode);
+            LeagueFragment leagueFragment =new LeagueFragment();
+            leagueFragment.setArguments(bundle);
+            mFragmentManager = getSupportFragmentManager();
+            mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.replace(R.id.content_main,leagueFragment).commit();
 
-        }*/
+        }
+        else if (id ==R.id.nav_serie_A)  {
+
+            chapionCode= 444;
+            bundle=new Bundle();
+            bundle.putInt(CHAMPIONTYPE , chapionCode);
+            LeagueFragment leagueFragment =new LeagueFragment();
+            leagueFragment.setArguments(bundle);
+            mFragmentManager = getSupportFragmentManager();
+            mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.replace(R.id.content_main,leagueFragment).commit();
+
+        }
+        else if (id ==R.id.nav_champions_league)  {
+
+            chapionCode= 446;
+            bundle=new Bundle();
+            bundle.putInt(CHAMPIONTYPE , chapionCode);
+            LeagueFragment leagueFragment =new LeagueFragment();
+            leagueFragment.setArguments(bundle);
+            mFragmentManager = getSupportFragmentManager();
+            mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.replace(R.id.content_main,leagueFragment).commit();
+
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -145,7 +193,7 @@ public class ContentActivity extends AppCompatActivity
     public void onNetworkConnectionChanged(boolean isConnected) {
         showSnackbar(isConnected, findViewById(android.R.id.content), this);
     }
-
+/*
     public void loadCompetitionsNewsResponse ( )
     {
 
@@ -167,5 +215,5 @@ public class ContentActivity extends AppCompatActivity
         });
 
 
-    }
+    }*/
 }

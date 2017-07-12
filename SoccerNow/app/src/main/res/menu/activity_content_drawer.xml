@@ -7,6 +7,10 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/news" />
         <item
+            android:id="@+id/nav_primera_division"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/primera_division" />
+        <item
             android:id="@+id/nav_primera_liga"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/primera_liga" />
