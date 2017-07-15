@@ -13,6 +13,8 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -27,6 +29,8 @@ import samuel.example.com.soccernow.R;
 import samuel.example.com.soccernow.model.articleModel.Article;
 import samuel.example.com.soccernow.model.articleModel.NewsResponse;
 
+import static samuel.example.com.soccernow.utilities.checkInternetConnection;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -37,6 +41,8 @@ public class LatestNewsFragment extends Fragment {
     private NewsAdapter newsAdapter;
     private List<Article> latestNewsArticles ;
     private ProgressBar progressBar;
+    private LinearLayout errorLinearLayout ;
+    private Button retryConnection;
     private String LATEST_SAVE_INSTANCESTATE= "savedInstances";
 
 
@@ -48,17 +54,13 @@ public class LatestNewsFragment extends Fragment {
         newsAdapter = new NewsAdapter();
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
-
+        errorLinearLayout = (LinearLayout) rootView.findViewById(R.id.connection_error);
+        retryConnection =(Button) rootView.findViewById(R.id.retry_button);
         onOrientationChange(getResources().getConfiguration().orientation , savedInstanceState);
-
-        newsAdapter.setRecyclerViewCallback(new NewsAdapter.RecyclerViewCallback() {
+        retryConnection.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(int position) {
-                Uri webpage = Uri.parse(latestNewsArticles.get(position).getUrl());
-                Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
-                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-                    startActivity(intent);
-                }
+            public void onClick(View v) {
+                loadNewsResponse(null);
             }
         });
         return  rootView ;
@@ -98,28 +100,39 @@ public class LatestNewsFragment extends Fragment {
     public void loadNewsResponse ( Bundle savedInstanceState)
     {
         if (savedInstanceState==null) {
-            ApiInterface apiService = ApiInterface.ApiClient.getClient().create(ApiInterface.class);
+            if (checkInternetConnection()) {
+                mRecyclerView.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
+                errorLinearLayout.setVisibility(View.GONE);
+                ApiInterface apiService = ApiInterface.ApiClient.getClient().create(ApiInterface.class);
 
-            Call<NewsResponse> call = apiService.getTopNews(getResources().getString(R.string.news_source), getResources().getString(R.string.latest_Order), getResources().getString(R.string.news_api_key));
-            call.enqueue(new Callback<NewsResponse>() {
-                @Override
-                public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
+                Call<NewsResponse> call = apiService.getTopNews(getResources().getString(R.string.news_source), getResources().getString(R.string.latest_Order), getResources().getString(R.string.news_api_key));
+                call.enqueue(new Callback<NewsResponse>() {
+                    @Override
+                    public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
 
-                    latestNewsArticles = response.body().getArticles();
+                        latestNewsArticles = response.body().getArticles();
 
-                    newsAdapter.setApiResponse(latestNewsArticles);
-                    progressBar.setVisibility(View.GONE);
+                        newsAdapter.setApiResponse(latestNewsArticles);
+                        progressBar.setVisibility(View.GONE);
 
-                }
+                    }
 
-                @Override
-                public void onFailure(Call<NewsResponse> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<NewsResponse> call, Throwable t) {
 
-                    Toast.makeText(getContext(), " error", Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
+                        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.something_wrong), Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
 
-                }
-            });
+                    }
+                });
+            }
+
+            else {
+                mRecyclerView.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
+                errorLinearLayout.setVisibility(View.VISIBLE);
+            }
         }
 
         else if (savedInstanceState!=null)

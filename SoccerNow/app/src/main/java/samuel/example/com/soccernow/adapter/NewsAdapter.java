@@ -24,7 +24,6 @@ import samuel.example.com.soccernow.model.articleModel.Article;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.RecyclerViewAdapterHolder>{
     private List<Article> articleList ;
-    private RecyclerViewCallback  recyclerViewCallback;
 
     public void setApiResponse (List<Article> articleList )
     {
@@ -32,10 +31,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.RecyclerViewAd
         notifyDataSetChanged();
     }
 
-
-    public void setRecyclerViewCallback(RecyclerViewCallback recyclerViewCallback) {
-        this.recyclerViewCallback = recyclerViewCallback;
-    }
 
     @Override
     public RecyclerViewAdapterHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -60,13 +55,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.RecyclerViewAd
                 .error(R.drawable.p1)
                 .into(holder.article_icon);
 
-
-        holder.layoutParent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                recyclerViewCallback.onItemClick(position);
-            }
-        });
     }
 
     @Override
@@ -100,8 +88,5 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.RecyclerViewAd
 
     }
 
-    public interface RecyclerViewCallback {
-        void onItemClick(int  position);
-    }
 
 }

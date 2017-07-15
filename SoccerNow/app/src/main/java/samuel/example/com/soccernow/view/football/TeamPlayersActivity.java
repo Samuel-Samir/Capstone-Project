@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +46,9 @@ public class TeamPlayersActivity extends AppCompatActivity
     private TextView teamName;
     private ImageView teamImage;
     private ProgressBar progressBar;
+    private LinearLayout allContentLinearLayout;
+    private LinearLayout errorLinearLayout ;
+    private Button retryConnection;
 
 
     @Override
@@ -52,8 +57,11 @@ public class TeamPlayersActivity extends AppCompatActivity
         setContentView(R.layout.activity_team_players);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-
+        allContentLinearLayout=(LinearLayout) findViewById(R.id.content_all);
+        errorLinearLayout = (LinearLayout) findViewById(R.id.connection_error);
+        retryConnection =(Button)  findViewById(R.id.retry_button);
         teamPlayersAdapter = new TeamPlayersAdapter();
+
         if (!checkInternetConnection()) {
             showSnackbarDisconnected(findViewById(android.R.id.content), this);
         }
@@ -62,7 +70,6 @@ public class TeamPlayersActivity extends AppCompatActivity
             Bundle bundle = getIntent().getBundleExtra(TEAM_BUNDEL);
             if(bundle.getString(TEAM_CODE)!=null && bundle.getString(TEAM_NAME)!=null && bundle.getString(TEAM_IMAGE)!=null )
             {
-                progressBar.setVisibility(View.VISIBLE);
 
                 setTitle(getResources().getString(R.string.teamsplayers));
                 teamId = Integer.valueOf(bundle.getString(TEAM_CODE));
@@ -75,6 +82,12 @@ public class TeamPlayersActivity extends AppCompatActivity
                 loadLeagueTable ();
             }
         }
+        retryConnection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadLeagueTable();
+            }
+        });
     }
 
 
@@ -85,6 +98,10 @@ public class TeamPlayersActivity extends AppCompatActivity
             mRecyclerView.setLayoutManager(new LinearLayoutManager(TeamPlayersActivity.this));
             mRecyclerView.setAdapter(teamPlayersAdapter);
 
+        if (checkInternetConnection()) {
+            allContentLinearLayout.setVisibility(View.VISIBLE);
+            errorLinearLayout.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
             ApiInterface apiService = ApiInterface.ApiClientFootBall.getClient().create(ApiInterface.class);
             Call<PlayerResponse> call = apiService.getTeamPlayers(teamId);
             call.enqueue(new Callback<PlayerResponse>() {
@@ -98,12 +115,16 @@ public class TeamPlayersActivity extends AppCompatActivity
 
                 @Override
                 public void onFailure(Call<PlayerResponse> call, Throwable t) {
-                    Toast.makeText(getBaseContext(), " error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), getResources().getString(R.string.something_wrong), Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
 
 
                 }
-            });
+            });}
+        else {
+            allContentLinearLayout.setVisibility(View.GONE);
+            errorLinearLayout.setVisibility(View.VISIBLE);
+        }
 
 
     }

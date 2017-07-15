@@ -26,6 +26,10 @@
     <string name="leagueTable">League Table</string>
     <string name="notYet">Not yet</string>
     <string name="teamsplayers">Teams Players</string>
+    <string name="internet_mass">It seems you are not connected to the internet</string>
+    <string name="retry">RETRY</string>
+    <string name="something_wrong">Something went wrong</string>
+    <string name="dataNotAvalible">Team Data Not Available</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

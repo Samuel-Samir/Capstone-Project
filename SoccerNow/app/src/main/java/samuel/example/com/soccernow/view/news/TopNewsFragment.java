@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.BinderThread;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,8 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -27,6 +30,8 @@ import samuel.example.com.soccernow.R;
 import samuel.example.com.soccernow.model.articleModel.Article;
 import samuel.example.com.soccernow.model.articleModel.NewsResponse;
 
+import static samuel.example.com.soccernow.utilities.checkInternetConnection;
+
 
 public class TopNewsFragment extends Fragment {
 
@@ -34,10 +39,12 @@ public class TopNewsFragment extends Fragment {
     private NewsAdapter newsAdapter;
     private List<Article> topNewsArticles ;
     private ProgressBar progressBar;
+    private LinearLayout errorLinearLayout ;
+    private Button retryConnection;
     private String TOP_SAVE_INSTANCESTATE= "savedInstances2";
-
     public static String BUNDLE_TOP_NEWS ="topNews";
     public static String TOP_NEWS_TAG ="topNewsTag";
+
 
 
 
@@ -50,24 +57,18 @@ public class TopNewsFragment extends Fragment {
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
         newsAdapter = new NewsAdapter();
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-
+        errorLinearLayout = (LinearLayout) rootView.findViewById(R.id.connection_error);
+        retryConnection =(Button) rootView.findViewById(R.id.retry_button);
         progressBar.setVisibility(View.VISIBLE);
-        progressBar.setVisibility(View.VISIBLE);
-
         onOrientationChange(getResources().getConfiguration().orientation , savedInstanceState);
 
-
-        newsAdapter.setRecyclerViewCallback(new NewsAdapter.RecyclerViewCallback() {
+        retryConnection.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(int position) {
-
-                Uri webpage = Uri.parse(topNewsArticles.get(position).getUrl());
-                Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
-                if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-                    startActivity(intent);
-                }
+            public void onClick(View v) {
+                loadNewsResponse(null);
             }
         });
+
         return  rootView ;
     }
 
@@ -106,28 +107,42 @@ public class TopNewsFragment extends Fragment {
     {
         if (savedInstanceState==null) {
 
-            ApiInterface apiService = ApiInterface.ApiClient.getClient().create(ApiInterface.class);
+            if (checkInternetConnection()) {
 
-            Call<NewsResponse> call = apiService.getTopNews(getResources().getString(R.string.news_source), getResources().getString(R.string.top_Order), getResources().getString(R.string.news_api_key));
-            call.enqueue(new Callback<NewsResponse>() {
-                @Override
-                public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
+                mRecyclerView.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
+                errorLinearLayout.setVisibility(View.GONE);
+                ApiInterface apiService = ApiInterface.ApiClient.getClient().create(ApiInterface.class);
 
-                    topNewsArticles = response.body().getArticles();
+                Call<NewsResponse> call = apiService.getTopNews(getResources().getString(R.string.news_source), getResources().getString(R.string.top_Order), getResources().getString(R.string.news_api_key));
+                call.enqueue(new Callback<NewsResponse>() {
+                    @Override
+                    public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
 
-                    newsAdapter.setApiResponse(topNewsArticles);
-                    progressBar.setVisibility(View.GONE);
+                        topNewsArticles = response.body().getArticles();
 
-                }
+                        newsAdapter.setApiResponse(topNewsArticles);
+                        progressBar.setVisibility(View.GONE);
 
-                @Override
-                public void onFailure(Call<NewsResponse> call, Throwable t) {
+                    }
 
-                    Toast.makeText(getContext(), " error", Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.GONE);
+                    @Override
+                    public void onFailure(Call<NewsResponse> call, Throwable t) {
 
-                }
-            });
+                        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.something_wrong), Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
+
+                    }
+                });
+            }
+            else {
+                mRecyclerView.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
+                errorLinearLayout.setVisibility(View.VISIBLE);
+
+
+
+            }
         }
 
         else if (savedInstanceState!=null)

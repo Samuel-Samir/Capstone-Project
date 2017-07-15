@@ -17,9 +17,7 @@ import samuel.example.com.soccernow.adapter.ViewPagerAdapter;
 import static samuel.example.com.soccernow.view.ContentActivity.CHAMPIONTYPE;
 import static samuel.example.com.soccernow.view.ContentActivity.CHAMPION_NAME;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class LeagueFragment extends Fragment {
 
     private int chapionCode;
@@ -32,7 +30,7 @@ public class LeagueFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-         View rootView =inflater.inflate(R.layout.fragment_league, container, false);
+        View rootView =inflater.inflate(R.layout.fragment_league, container, false);
 
         if (getArguments()!= null && getArguments().getInt(CHAMPIONTYPE)!=0 &&  getArguments().getString(CHAMPION_NAME)!=null)
         {

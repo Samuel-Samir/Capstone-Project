@@ -41,7 +41,7 @@
             <ImageView
                 android:layout_width="0dp"
                 android:layout_weight=".25"
-                android:layout_height="20dp"
+                android:layout_height="@dimen/teamImageSmall"
                 android:src="@drawable/sb"
                 android:id="@+id/firstTeamImage"
                 android:paddingStart="@dimen/dp_4"
@@ -67,7 +67,7 @@
             <ImageView
                 android:layout_width="0dp"
                 android:layout_weight=".25"
-                android:layout_height="20dp"
+                android:layout_height="@dimen/teamImageSmall"
                 android:src="@drawable/sb"
                 android:id="@+id/secondTeamImage"
                 android:paddingStart="@dimen/dp_4"

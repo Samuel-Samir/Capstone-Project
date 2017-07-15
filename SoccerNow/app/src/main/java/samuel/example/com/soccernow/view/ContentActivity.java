@@ -30,7 +30,6 @@ public class ContentActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener ,  ConnectivityReceiver.ConnectivityReceiverListener {
 
 
-    public static String NEWS_TYPE = "newsType" ;
 
     FragmentManager mFragmentManager ;
     FragmentTransaction mFragmentTransaction ;
