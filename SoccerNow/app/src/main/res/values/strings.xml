@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SoccerNow</string>
+    <string name="app_name">Soccer Now</string>
     <string name="title_activity_content">ContentActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
