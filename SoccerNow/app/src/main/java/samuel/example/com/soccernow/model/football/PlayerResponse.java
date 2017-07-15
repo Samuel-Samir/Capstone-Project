@@ -1,5 +1,8 @@
 package samuel.example.com.soccernow.model.football;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -8,10 +11,25 @@ import java.util.List;
  * Created by samuel on 7/15/2017.
  */
 
-public class PlayerResponse {
+public class PlayerResponse implements Parcelable {
 
     @SerializedName("players")
     private List<PlayerData> playerDataList ;
+
+    protected PlayerResponse(Parcel in) {
+    }
+
+    public static final Creator<PlayerResponse> CREATOR = new Creator<PlayerResponse>() {
+        @Override
+        public PlayerResponse createFromParcel(Parcel in) {
+            return new PlayerResponse(in);
+        }
+
+        @Override
+        public PlayerResponse[] newArray(int size) {
+            return new PlayerResponse[size];
+        }
+    };
 
     public List<PlayerData> getPlayerDataList() {
         return playerDataList;
@@ -19,5 +37,16 @@ public class PlayerResponse {
 
     public void setPlayerDataList(List<PlayerData> playerDataList) {
         this.playerDataList = playerDataList;
+    }
+
+    public PlayerResponse () {}
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
     }
 }

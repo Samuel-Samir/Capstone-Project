@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -20,6 +21,7 @@ import samuel.example.com.soccernow.view.football.LeagueFragment;
 import samuel.example.com.soccernow.view.news.NewsFragment;
 
 import static samuel.example.com.soccernow.utilities.checkInternetConnection;
+import static samuel.example.com.soccernow.utilities.currentChoose;
 import static samuel.example.com.soccernow.utilities.showSnackbar;
 import static samuel.example.com.soccernow.utilities.showSnackbarDisconnected;
 import static samuel.example.com.soccernow.view.news.NewsFragment.TAG_NEWS_FRAGMENT;
@@ -55,12 +57,10 @@ public class ContentActivity extends AppCompatActivity
             showSnackbarDisconnected(findViewById(android.R.id.content), this);
         }
 
-        mFragmentManager = getSupportFragmentManager();
-        mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.replace(R.id.content_main,new NewsFragment() , TAG_NEWS_FRAGMENT).commit();
-
-
+        setCurrentChoose (currentChoose);
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -104,11 +104,13 @@ public class ContentActivity extends AppCompatActivity
 
         if (id == R.id.nav_news) {
 
+            currentChoose=1;
             mFragmentManager = getSupportFragmentManager();
             mFragmentTransaction = mFragmentManager.beginTransaction();
             mFragmentTransaction.replace(R.id.content_main,new NewsFragment()).commit();
         }
         else if (id ==R.id.nav_primera_division)  {
+            currentChoose=2;
             chapionCode= 436;
             bundle=new Bundle();
             bundle.putInt(CHAMPIONTYPE , chapionCode);
@@ -122,6 +124,7 @@ public class ContentActivity extends AppCompatActivity
         }
         else if (id ==R.id.nav_primera_liga)  {
 
+            currentChoose=3;
             chapionCode= 445;
             bundle=new Bundle();
             bundle.putInt(CHAMPIONTYPE , chapionCode);
@@ -134,6 +137,8 @@ public class ContentActivity extends AppCompatActivity
 
         }
         else if (id ==R.id.nav_bundesliga)  {
+
+            currentChoose=4;
             chapionCode= 430;
             bundle=new Bundle();
             bundle.putInt(CHAMPIONTYPE , chapionCode);
@@ -146,6 +151,7 @@ public class ContentActivity extends AppCompatActivity
         }
         else if (id ==R.id.nav_ligue_1)  {
 
+            currentChoose=5;
             chapionCode= 450;
             bundle=new Bundle();
             bundle.putInt(CHAMPIONTYPE , chapionCode);
@@ -159,6 +165,7 @@ public class ContentActivity extends AppCompatActivity
         }
         else if (id ==R.id.nav_serie_A)  {
 
+            currentChoose=6;
             chapionCode= 444;
             bundle=new Bundle();
             bundle.putInt(CHAMPIONTYPE , chapionCode);
@@ -172,6 +179,7 @@ public class ContentActivity extends AppCompatActivity
         }
         else if (id ==R.id.nav_champions_league)  {
 
+            currentChoose=7;
             chapionCode= 446;
             bundle=new Bundle();
             bundle.putInt(CHAMPIONTYPE , chapionCode);
@@ -187,6 +195,89 @@ public class ContentActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void setCurrentChoose (int choose)
+    {
+        mFragmentManager = getSupportFragmentManager();
+        mFragmentTransaction = mFragmentManager.beginTransaction();
+        int chapionCode=0;
+        Bundle bundle ;
+
+
+        if (choose==1)
+            mFragmentTransaction.replace(R.id.content_main,new NewsFragment() , TAG_NEWS_FRAGMENT).commit();
+        else if (choose==2) {
+            chapionCode= 436;
+            bundle=new Bundle();
+            bundle.putInt(CHAMPIONTYPE , chapionCode);
+            bundle.putString(CHAMPION_NAME,getResources().getString(R.string.primera_division));
+            LeagueFragment leagueFragment =new LeagueFragment();
+            leagueFragment.setArguments(bundle);
+            mFragmentManager = getSupportFragmentManager();
+            mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.replace(R.id.content_main, leagueFragment, TAG_NEWS_FRAGMENT).commit();
+        }
+
+        else if (choose==3) {
+            chapionCode= 445;
+            bundle=new Bundle();
+            bundle.putInt(CHAMPIONTYPE , chapionCode);
+            bundle.putString(CHAMPION_NAME,getResources().getString(R.string.primera_liga));
+            LeagueFragment leagueFragment =new LeagueFragment();
+            leagueFragment.setArguments(bundle);
+            mFragmentManager = getSupportFragmentManager();
+            mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.replace(R.id.content_main, leagueFragment, TAG_NEWS_FRAGMENT).commit();
+        }
+        else if (choose==4) {
+            chapionCode= 430;
+            bundle=new Bundle();
+            bundle.putInt(CHAMPIONTYPE , chapionCode);
+            bundle.putString(CHAMPION_NAME,getResources().getString(R.string.bundesliga));
+            LeagueFragment leagueFragment =new LeagueFragment();
+            leagueFragment.setArguments(bundle);
+            mFragmentManager = getSupportFragmentManager();
+            mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.replace(R.id.content_main, leagueFragment, TAG_NEWS_FRAGMENT).commit();
+        }
+        else if (choose==5) {
+            chapionCode= 450;
+            bundle=new Bundle();
+            bundle.putInt(CHAMPIONTYPE , chapionCode);
+            bundle.putString(CHAMPION_NAME,getResources().getString(R.string.ligue_1));
+            LeagueFragment leagueFragment =new LeagueFragment();
+            leagueFragment.setArguments(bundle);
+            mFragmentManager = getSupportFragmentManager();
+            mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.replace(R.id.content_main, leagueFragment, TAG_NEWS_FRAGMENT).commit();
+        }
+        else if (choose==6) {
+            chapionCode= 444;
+            bundle=new Bundle();
+            bundle.putInt(CHAMPIONTYPE , chapionCode);
+            bundle.putString(CHAMPION_NAME,getResources().getString(R.string.serie_A));
+            LeagueFragment leagueFragment =new LeagueFragment();
+            leagueFragment.setArguments(bundle);
+            mFragmentManager = getSupportFragmentManager();
+            mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.replace(R.id.content_main, leagueFragment, TAG_NEWS_FRAGMENT).commit();
+        }
+        else if (choose==7) {
+            chapionCode= 446;
+            bundle=new Bundle();
+            bundle.putInt(CHAMPIONTYPE , chapionCode);
+            bundle.putString(CHAMPION_NAME,getResources().getString(R.string.champions_league));
+            LeagueFragment leagueFragment =new LeagueFragment();
+            leagueFragment.setArguments(bundle);
+            mFragmentManager = getSupportFragmentManager();
+            mFragmentTransaction = mFragmentManager.beginTransaction();
+            mFragmentTransaction.replace(R.id.content_main, leagueFragment, TAG_NEWS_FRAGMENT).commit();
+        }
+
+
+
+
     }
 
     @Override

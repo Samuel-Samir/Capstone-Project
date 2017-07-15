@@ -15,7 +15,7 @@ import samuel.example.com.soccernow.model.ConnectivityReceiver;
 
 public class utilities {
 
-
+    public static int currentChoose=1;
     public static boolean checkInternetConnection() {
         return ConnectivityReceiver.isConnected();
     }

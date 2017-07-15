@@ -53,7 +53,7 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
         holder.draws.setText(String.valueOf(leagueData.getDraws()));
         holder.loses.setText(String.valueOf(leagueData.getLosses()));
         holder.pts.setText(String.valueOf(leagueData.getPoints()));
-        holder.team_name.setOnClickListener(new View.OnClickListener() {
+        holder.holderLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 recyclerViewTeamCallback.onItemClick(position);
@@ -72,7 +72,7 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
 
 
     public class RecyclerViewAdapterHolder extends RecyclerView.ViewHolder {
-        private LinearLayout itemData ;
+        private LinearLayout holderLinearLayout ;
         private ImageView league_icon  ;
         private TextView position ;
         private TextView team_name ;
@@ -85,7 +85,6 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
 
         public RecyclerViewAdapterHolder(View itemView) {
             super(itemView);
-           // itemView = (LinearLayout) itemView.findViewById(R.id.item_data);
             league_icon= (ImageView) itemView.findViewById(R.id.team_image);
             position= (TextView) itemView.findViewById(R.id.position_textView);
             team_name= (TextView) itemView.findViewById(R.id.teamName_textView);
@@ -93,6 +92,7 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
             draws= (TextView) itemView.findViewById(R.id.draes_textView);
             loses= (TextView) itemView.findViewById(R.id.loses_textView);
             pts = (TextView) itemView.findViewById(R.id.pts_textView);
+            holderLinearLayout = (LinearLayout) itemView.findViewById(R.id.holder_LinearLayout);
 
         }
 
