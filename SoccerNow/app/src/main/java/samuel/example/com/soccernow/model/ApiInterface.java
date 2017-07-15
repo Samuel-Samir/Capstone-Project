@@ -8,6 +8,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import samuel.example.com.soccernow.model.articleModel.NewsResponse;
+import samuel.example.com.soccernow.model.football.PlayerResponse;
 import samuel.example.com.soccernow.model.football.leagueMatches.LeagueMatchesResponse;
 import samuel.example.com.soccernow.model.football.leagueTable.LeagueTableResponse;
 
@@ -23,11 +24,7 @@ public interface ApiInterface {
 
     @GET("articles/")
     Call<NewsResponse> getTopNews(@Query("source") String source, @Query("sortBy") String sortby, @Query("apiKey") String apiKey);
-/*
-    @Headers("X-Auth-Token: 8899bb9e61d04e20b2de5ec3d26e5ecf")
-    @GET("competitions")
-    Call<List<Competition>> getf();
-*/
+
 
     @Headers("X-Auth-Token: 8899bb9e61d04e20b2de5ec3d26e5ecf")
     @GET("competitions/{champion_id}/leagueTable")
@@ -37,6 +34,10 @@ public interface ApiInterface {
     @Headers("X-Auth-Token: 8899bb9e61d04e20b2de5ec3d26e5ecf")
     @GET("competitions/{champion_id}/fixtures?matchday=16")
     Call<LeagueMatchesResponse>  getLeagueMatches (@Path("champion_id") int championId);
+
+    @Headers("X-Auth-Token: 8899bb9e61d04e20b2de5ec3d26e5ecf")
+    @GET("teams/{team_id}/players")
+    Call<PlayerResponse>  getTeamPlayers (@Path("team_id") int teamId);
 
     class ApiClient {
 

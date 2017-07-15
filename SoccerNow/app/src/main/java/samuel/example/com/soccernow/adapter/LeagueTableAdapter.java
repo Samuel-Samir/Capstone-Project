@@ -1,11 +1,13 @@
 package samuel.example.com.soccernow.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -18,8 +20,8 @@ import samuel.example.com.soccernow.model.football.leagueTable.LeagueData;
  */
 
 public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.RecyclerViewAdapterHolder>{
-    private  List<LeagueData> leagueDataList ; ;
-   // private NewsAdapter.RecyclerViewCallback recyclerViewCallback;
+    private  List<LeagueData> leagueDataList ;
+    private LeagueTableAdapter.RecyclerViewTeamCallback recyclerViewTeamCallback;
 
     public void setApiResponse ( List<LeagueData> leagueDataList  )
     {
@@ -28,9 +30,9 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
     }
 
 
-  /*  public void setRecyclerViewCallback(NewsAdapter.RecyclerViewCallback recyclerViewCallback) {
-        this.recyclerViewCallback = recyclerViewCallback;
-    }*/
+     public void setRecyclerViewCallback(LeagueTableAdapter.RecyclerViewTeamCallback recyclerViewTeamCallback) {
+        this.recyclerViewTeamCallback = recyclerViewTeamCallback;
+    }
 
     @Override
     public LeagueTableAdapter.RecyclerViewAdapterHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -51,6 +53,12 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
         holder.draws.setText(String.valueOf(leagueData.getDraws()));
         holder.loses.setText(String.valueOf(leagueData.getLosses()));
         holder.pts.setText(String.valueOf(leagueData.getPoints()));
+        holder.team_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recyclerViewTeamCallback.onItemClick(position);
+            }
+        });
     }
 
     @Override
@@ -64,7 +72,7 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
 
 
     public class RecyclerViewAdapterHolder extends RecyclerView.ViewHolder {
-        //private LinearLayout layoutParent ;
+        private LinearLayout itemData ;
         private ImageView league_icon  ;
         private TextView position ;
         private TextView team_name ;
@@ -77,6 +85,7 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
 
         public RecyclerViewAdapterHolder(View itemView) {
             super(itemView);
+           // itemView = (LinearLayout) itemView.findViewById(R.id.item_data);
             league_icon= (ImageView) itemView.findViewById(R.id.team_image);
             position= (TextView) itemView.findViewById(R.id.position_textView);
             team_name= (TextView) itemView.findViewById(R.id.teamName_textView);
@@ -89,7 +98,7 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
 
     }
 
-    public interface RecyclerViewCallback {
+    public interface RecyclerViewTeamCallback {
         void onItemClick(int  position);
     }
 

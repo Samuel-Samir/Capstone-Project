@@ -32,6 +32,17 @@ public class LeagueData {
     @SerializedName("losses")
     private int losses;
 
+    @SerializedName("_links")
+    private TeamHref _links ;
+
+    public TeamHref get_links() {
+        return _links;
+    }
+
+    public void set_links(TeamHref _links) {
+        this._links = _links;
+    }
+
     public int getPosition() {
         return position;
     }

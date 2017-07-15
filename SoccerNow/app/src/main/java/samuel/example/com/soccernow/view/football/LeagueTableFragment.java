@@ -1,5 +1,6 @@
 package samuel.example.com.soccernow.view.football;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,13 +12,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import samuel.example.com.soccernow.R;
 import samuel.example.com.soccernow.adapter.LeagueTableAdapter;
 import samuel.example.com.soccernow.model.ApiInterface;
+import samuel.example.com.soccernow.model.football.leagueTable.LeagueData;
 import samuel.example.com.soccernow.model.football.leagueTable.LeagueTableResponse;
+import samuel.example.com.soccernow.view.ContentActivity;
 
 import static samuel.example.com.soccernow.view.football.LeagueFragment.LEAGUE_CODE;
 import static samuel.example.com.soccernow.view.football.LeagueFragment.LEAGUE_NEMA;
@@ -30,6 +35,13 @@ public class LeagueTableFragment extends Fragment {
     private ImageView leagueImageView;
     private RecyclerView mRecyclerView;
     private LeagueTableAdapter leagueTableAdapter;
+    private List <LeagueData> leagueDataList ;
+
+    public static final String TEAM_CODE = "team_code";
+    public static final String TEAM_NAME = "team_name";
+    public static final String TEAM_IMAGE = "team_image";
+    public static final String TEAM_BUNDEL = "team_data";
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +63,24 @@ public class LeagueTableFragment extends Fragment {
 
             loadLeagueTable ();
         }
+
+        leagueTableAdapter.setRecyclerViewCallback(new LeagueTableAdapter.RecyclerViewTeamCallback() {
+            @Override
+            public void onItemClick(int position) {
+                String teamCode = leagueDataList.get(position).get_links().getTeam().getHref();
+                String []cutLink =teamCode.split("teams/");
+                String teamName = leagueDataList.get(position).getTeamName();
+                String teamImage = leagueDataList.get(position).getCrestURI();
+                Intent intent =new Intent(getActivity() , TeamPlayersActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(TEAM_CODE ,cutLink[1] );
+                bundle.putString(TEAM_NAME,teamName );
+                bundle.putString(TEAM_IMAGE ,teamImage );
+                intent.putExtra( TEAM_BUNDEL , bundle);
+                startActivity(intent);
+
+            }
+        });
         return  rootView;
     }
 
@@ -65,6 +95,7 @@ public class LeagueTableFragment extends Fragment {
              @Override
              public void onResponse(Call<LeagueTableResponse> call, Response<LeagueTableResponse> response) {
                  LeagueTableResponse leagueTableResponse = response.body();
+                 leagueDataList = leagueTableResponse.getLeagueDataList();
                  leagueTableAdapter.setApiResponse(leagueTableResponse.getLeagueDataList());
 
              }
