@@ -7,6 +7,8 @@
     <color name="transparent_white">#80FFFFFF</color>
     <color name="red">#e74c3c</color>
     <color name="black">#000000</color>
+    <color name="result_color">#cfd1d2</color>
+    <color name="not_yet">#f3f0f261</color>
 
 
 </resources>

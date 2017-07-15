@@ -24,6 +24,7 @@
     <string name="snackbar_message_disconnected">No Internet Connection</string>
     <string name="matches">Matches</string>
     <string name="leagueTable">League Table</string>
+    <string name="notYet">Not yet</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

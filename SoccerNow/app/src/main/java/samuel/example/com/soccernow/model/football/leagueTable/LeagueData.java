@@ -1,4 +1,4 @@
-package samuel.example.com.soccernow.model.football;
+package samuel.example.com.soccernow.model.football.leagueTable;
 
 import com.google.gson.annotations.SerializedName;
 

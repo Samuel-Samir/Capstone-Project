@@ -1,8 +1,10 @@
-package samuel.example.com.soccernow.model.football;
+package samuel.example.com.soccernow.model.football.leagueTable;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+
+import samuel.example.com.soccernow.model.football.leagueTable.LeagueData;
 
 /**
  * Created by samuel on 7/12/2017.
