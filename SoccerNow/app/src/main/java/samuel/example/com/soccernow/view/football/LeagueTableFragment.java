@@ -117,61 +117,61 @@ public class LeagueTableFragment extends Fragment {
         return  rootView;
     }
 
-     private void loadLeagueTable (Bundle savedInstanceState)
-     {
-         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-         mRecyclerView.setAdapter(leagueTableAdapter);
+    private void loadLeagueTable (Bundle savedInstanceState)
+    {
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.setAdapter(leagueTableAdapter);
 
-         if(savedInstanceState==null) {
-             if (checkInternetConnection()) {
-                 allContentLinearLayout.setVisibility(View.VISIBLE);
-                 errorLinearLayout.setVisibility(View.GONE);
-                 ApiInterface apiService = ApiInterface.ApiClientFootBall.getClient().create(ApiInterface.class);
-                 Call<LeagueTableResponse> call = apiService.getLeagueTable(chapionCode);
-                 call.enqueue(new Callback<LeagueTableResponse>() {
-                     @Override
-                     public void onResponse(Call<LeagueTableResponse> call, Response<LeagueTableResponse> response) {
-                         LeagueTableResponse leagueTableResponse = response.body();
-                         leagueDataList = leagueTableResponse.getLeagueDataList();
-                         leagueTableAdapter.setApiResponse(leagueTableResponse.getLeagueDataList());
-                         progressBar.setVisibility(View.GONE);
-
-
-                     }
-
-                     @Override
-                     public void onFailure(Call<LeagueTableResponse> call, Throwable t) {
-                         Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.something_wrong), Toast.LENGTH_SHORT).show();
-                         progressBar.setVisibility(View.GONE);
+        if(savedInstanceState==null) {
+            if (checkInternetConnection()) {
+                allContentLinearLayout.setVisibility(View.VISIBLE);
+                errorLinearLayout.setVisibility(View.GONE);
+                ApiInterface apiService = ApiInterface.ApiClientFootBall.getClient().create(ApiInterface.class);
+                Call<LeagueTableResponse> call = apiService.getLeagueTable(chapionCode);
+                call.enqueue(new Callback<LeagueTableResponse>() {
+                    @Override
+                    public void onResponse(Call<LeagueTableResponse> call, Response<LeagueTableResponse> response) {
+                        LeagueTableResponse leagueTableResponse = response.body();
+                        leagueDataList = leagueTableResponse.getLeagueDataList();
+                        leagueTableAdapter.setApiResponse(leagueTableResponse.getLeagueDataList());
+                        progressBar.setVisibility(View.GONE);
 
 
-                     }
-                 });
-             }
+                    }
 
-             else if (favoriteLeagueCode==chapionCode)
-             {
-                 Toast.makeText(getContext(),getActivity().getResources().getString(R.string.dataNotAvalible) ,Toast.LENGTH_LONG).show();
-             }
-             else {
+                    @Override
+                    public void onFailure(Call<LeagueTableResponse> call, Throwable t) {
+                        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.something_wrong), Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.GONE);
 
-                 allContentLinearLayout.setVisibility(View.GONE);
-                 errorLinearLayout.setVisibility(View.VISIBLE);
-             }
-         }
-         else {
-             LeagueTableResponse leagueTableResponse = savedInstanceState.getParcelable(TEAM_SAVE_INSTANCE);
-             if(leagueTableResponse!=null)
-             {
-                 leagueDataList = leagueTableResponse.getLeagueDataList();
-                 leagueTableAdapter.setApiResponse(leagueDataList);
 
-             }
-             progressBar.setVisibility(View.GONE);
+                    }
+                });
+            }
 
-         }
+            else if (favoriteLeagueCode==chapionCode)
+            {
+                Toast.makeText(getContext(),getActivity().getResources().getString(R.string.dataNotAvalible) ,Toast.LENGTH_LONG).show();
+            }
+            else {
 
-     }
+                allContentLinearLayout.setVisibility(View.GONE);
+                errorLinearLayout.setVisibility(View.VISIBLE);
+            }
+        }
+        else {
+            LeagueTableResponse leagueTableResponse = savedInstanceState.getParcelable(TEAM_SAVE_INSTANCE);
+            if(leagueTableResponse!=null)
+            {
+                leagueDataList = leagueTableResponse.getLeagueDataList();
+                leagueTableAdapter.setApiResponse(leagueDataList);
+
+            }
+            progressBar.setVisibility(View.GONE);
+
+        }
+
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
