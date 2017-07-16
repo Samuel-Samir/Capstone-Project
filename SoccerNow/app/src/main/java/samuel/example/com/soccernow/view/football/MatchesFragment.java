@@ -28,6 +28,7 @@ import samuel.example.com.soccernow.model.football.leagueMatches.MatcheData;
 import samuel.example.com.soccernow.model.football.leagueTable.LeagueTableResponse;
 
 import static samuel.example.com.soccernow.utilities.checkInternetConnection;
+import static samuel.example.com.soccernow.utilities.getFavoritLeagueFromSharedPreferences;
 import static samuel.example.com.soccernow.view.football.LeagueFragment.LEAGUE_CODE;
 import static samuel.example.com.soccernow.view.football.LeagueFragment.LEAGUE_NEMA;
 
@@ -45,6 +46,7 @@ public class MatchesFragment extends Fragment {
     private LinearLayout allContentLinearLayout;
     private LinearLayout errorLinearLayout ;
     private Button retryConnection;
+    private int favoriteLeagueCode ;
 
 
 
@@ -59,6 +61,7 @@ public class MatchesFragment extends Fragment {
         errorLinearLayout = (LinearLayout) rootView.findViewById(R.id.connection_error);
         retryConnection =(Button) rootView.findViewById(R.id.retry_button);
         leagueMatchAdapter = new LeagueMatchAdapter();
+        favoriteLeagueCode =getFavoritLeagueFromSharedPreferences(getContext());
 
         if (getArguments()!= null && getArguments().getInt(LEAGUE_CODE)!=0 )
         {
@@ -117,6 +120,10 @@ public class MatchesFragment extends Fragment {
 
                     }
                 });
+            }
+            else if (favoriteLeagueCode==chapionCode)
+            {
+                Toast.makeText(getContext(),getActivity().getResources().getString(R.string.dataNotAvalible) ,Toast.LENGTH_LONG).show();
             }
             else {
 

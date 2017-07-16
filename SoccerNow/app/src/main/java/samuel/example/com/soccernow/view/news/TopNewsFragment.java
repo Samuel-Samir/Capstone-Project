@@ -31,6 +31,7 @@ import samuel.example.com.soccernow.model.articleModel.Article;
 import samuel.example.com.soccernow.model.articleModel.NewsResponse;
 
 import static samuel.example.com.soccernow.utilities.checkInternetConnection;
+import static samuel.example.com.soccernow.utilities.isTablet;
 
 
 public class TopNewsFragment extends Fragment {
@@ -76,14 +77,9 @@ public class TopNewsFragment extends Fragment {
     public void onOrientationChange(int orientation ,  Bundle savedInstanceState){
         int landScape=2;
         int portrait= 1;
-        DisplayMetrics metrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-
-        int widthPixels = metrics.widthPixels;
-        int heightPixels = metrics.heightPixels;
-        if (widthPixels>=1023 || heightPixels>=1023)
+        if (isTablet(getContext()))
         {
-            landScape=3;
+            landScape=2;
             portrait=2;
         }
 

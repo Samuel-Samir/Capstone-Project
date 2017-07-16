@@ -30,6 +30,8 @@
     <string name="retry">RETRY</string>
     <string name="something_wrong">Something went wrong</string>
     <string name="dataNotAvalible">Team Data Not Available</string>
+    <string name="fav_league">Favorite League</string>
+    <string name="league_code">code</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

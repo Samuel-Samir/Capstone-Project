@@ -15,13 +15,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".view.ContentActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <receiver
             android:name=".model.ConnectivityReceiver"
@@ -32,7 +26,15 @@
         </receiver>
 
         <activity android:name=".view.football.TeamPlayersActivity" />
-        <activity android:name=".view.ChateActivity"></activity>
+        <activity android:name=".view.ChateActivity" />
+        <activity android:name=".view.SplashScreenActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".view.FavoriteleagueActivity"></activity>
     </application>
 
 </manifest>

@@ -29,6 +29,7 @@ import samuel.example.com.soccernow.model.football.leagueTable.LeagueTableRespon
 import samuel.example.com.soccernow.view.ContentActivity;
 
 import static samuel.example.com.soccernow.utilities.checkInternetConnection;
+import static samuel.example.com.soccernow.utilities.getFavoritLeagueFromSharedPreferences;
 import static samuel.example.com.soccernow.view.football.LeagueFragment.LEAGUE_CODE;
 import static samuel.example.com.soccernow.view.football.LeagueFragment.LEAGUE_NEMA;
 
@@ -45,6 +46,7 @@ public class LeagueTableFragment extends Fragment {
     private LinearLayout allContentLinearLayout;
     private LinearLayout errorLinearLayout ;
     private Button retryConnection;
+    private int favoriteLeagueCode ;
 
     public static final String TEAM_CODE = "team_code";
     public static final String TEAM_NAME = "team_name";
@@ -64,6 +66,8 @@ public class LeagueTableFragment extends Fragment {
         allContentLinearLayout=(LinearLayout) rootView.findViewById(R.id.content_all);
         errorLinearLayout = (LinearLayout) rootView.findViewById(R.id.connection_error);
         retryConnection =(Button) rootView.findViewById(R.id.retry_button);
+        favoriteLeagueCode =getFavoritLeagueFromSharedPreferences(getContext());
+
         if (getArguments()!= null && getArguments().getInt(LEAGUE_CODE)!=0 )
         {
             progressBar.setVisibility(View.VISIBLE);
@@ -76,9 +80,9 @@ public class LeagueTableFragment extends Fragment {
             leagueImageView.setImageDrawable(getActivity().getResources().getDrawable(getActivity().getResources()
                     .getIdentifier("p"+chapionCode ,"drawable" , getActivity().getPackageName())));
 
-
             loadLeagueTable (savedInstanceState);
         }
+
 
         leagueTableAdapter.setRecyclerViewCallback(new LeagueTableAdapter.RecyclerViewTeamCallback() {
             @Override
@@ -143,6 +147,11 @@ public class LeagueTableFragment extends Fragment {
 
                      }
                  });
+             }
+
+             else if (favoriteLeagueCode==chapionCode)
+             {
+                 Toast.makeText(getContext(),getActivity().getResources().getString(R.string.dataNotAvalible) ,Toast.LENGTH_LONG).show();
              }
              else {
 

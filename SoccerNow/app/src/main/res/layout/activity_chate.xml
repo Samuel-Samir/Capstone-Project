@@ -19,8 +19,17 @@
         android:dividerHeight="10.0sp"
         android:divider="@android:color/transparent"
         android:transcriptMode="alwaysScroll"
+        android:paddingBottom="@dimen/dp_16"
         tools:listitem="@layout/item_message"/>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary"
+        android:layout_above="@+id/linearLayout"
+        android:paddingStart="@dimen/dp_8"
+        android:paddingEnd="@dimen/dp_8"
+        />
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -28,7 +37,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_4"
         android:orientation="horizontal">
 
         <ImageButton
@@ -64,6 +73,5 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:theme="@style/ProgressBarStyle"
-        android:visibility="visible"
         android:layout_centerVertical="true"/>
 </RelativeLayout>

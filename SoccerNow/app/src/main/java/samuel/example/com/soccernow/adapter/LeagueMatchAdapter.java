@@ -18,7 +18,7 @@ import samuel.example.com.soccernow.model.football.leagueTable.LeagueData;
  * Created by samuel on 7/15/2017.
  */
 
-public class LeagueMatchAdapter   extends RecyclerView.Adapter<LeagueMatchAdapter.RecyclerViewAdapterHolder>{
+public class LeagueMatchAdapter  extends RecyclerView.Adapter<LeagueMatchAdapter.RecyclerViewAdapterHolder>{
 
     private List<MatcheData> matcheDataList;
     public void setApiResponse ( List<MatcheData> matcheDataList  )
