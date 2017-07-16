@@ -1,5 +1,8 @@
 package samuel.example.com.soccernow.view.football;
 
+import android.content.Context;
+import android.graphics.drawable.PictureDrawable;
+import android.net.Uri;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +16,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.GenericRequestBuilder;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.StreamEncoder;
+import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
+import com.caverock.androidsvg.SVG;
+
+import java.io.InputStream;
 import java.util.List;
 
 import retrofit2.Call;
@@ -27,6 +38,9 @@ import samuel.example.com.soccernow.model.football.PlayerData;
 import samuel.example.com.soccernow.model.football.PlayerResponse;
 import samuel.example.com.soccernow.model.football.leagueMatches.LeagueMatchesResponse;
 import samuel.example.com.soccernow.model.football.leagueTable.LeagueTableResponse;
+import samuel.example.com.soccernow.svg.SvgDecoder;
+import samuel.example.com.soccernow.svg.SvgDrawableTranscoder;
+import samuel.example.com.soccernow.svg.SvgSoftwareLayerSetter;
 import samuel.example.com.soccernow.view.ContentActivity;
 
 import static samuel.example.com.soccernow.utilities.checkInternetConnection;
@@ -79,6 +93,24 @@ public class TeamPlayersActivity extends AppCompatActivity
                 teamImage = (ImageView) findViewById(R.id.teamImageView) ;
                 teamName.setText(name);
                 teamImage.setImageDrawable(getResources().getDrawable(R.drawable.p436));
+                GenericRequestBuilder requestBuilder;
+
+                Uri uri = Uri.parse(teamUri);
+                requestBuilder = Glide.with(this)
+                        .using(Glide.buildStreamModelLoader(Uri.class, this), InputStream.class)
+                        .from(Uri.class)
+                        .as(SVG.class)
+                        .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
+                        .sourceEncoder(new StreamEncoder())
+                        .cacheDecoder(new FileToStreamDecoder<SVG>(new SvgDecoder()))
+                        .decoder(new SvgDecoder())
+                        .animate(android.R.anim.fade_in)
+                        .listener(new SvgSoftwareLayerSetter<Uri>());
+                requestBuilder
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .load(uri)
+                        .into(teamImage);
+
                 loadLeagueTable ();
             }
         }

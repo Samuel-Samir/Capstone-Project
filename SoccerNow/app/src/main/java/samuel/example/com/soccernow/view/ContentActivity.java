@@ -1,5 +1,6 @@
 package samuel.example.com.soccernow.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -189,6 +190,12 @@ public class ContentActivity extends AppCompatActivity
             mFragmentTransaction = mFragmentManager.beginTransaction();
             mFragmentTransaction.replace(R.id.content_main,leagueFragment).commit();
 
+        }
+        else if  (id==R.id.nav_chating)
+        {
+            currentChoose=1;
+            Intent intent = new Intent(this , ChateActivity.class);
+             startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -15,9 +15,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".view.ContentActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-
-            >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,7 +31,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".view.football.TeamPlayersActivity"></activity>
+        <activity android:name=".view.football.TeamPlayersActivity" />
+        <activity android:name=".view.ChateActivity"></activity>
     </application>
 
 </manifest>

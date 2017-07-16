@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "775628525482",
+    "firebase_url": "https://soccernow-ce9bb.firebaseio.com",
+    "project_id": "soccernow-ce9bb",
+    "storage_bucket": "soccernow-ce9bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775628525482:android:5436bfa58e1981b9",
+        "android_client_info": {
+          "package_name": "samuel.example.com.soccernow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "775628525482-brbqu94pjq9lk12joogcu0kiola448ie.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "samuel.example.com.soccernow",
+            "certificate_hash": "c5d0d2b701863f12bfedf7f83d6aa98076056a65"
+          }
+        },
+        {
+          "client_id": "775628525482-4iue8m8ibeufllp89u187bg9a3cnb4k0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5kZP63pT2M19NzebTLEYSHy9whtGZNM8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "775628525482-4iue8m8ibeufllp89u187bg9a3cnb4k0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
