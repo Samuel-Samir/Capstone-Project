@@ -9,8 +9,8 @@ import android.util.Log;
  * Created by samuel on 7/17/2017.
  */
 
-public class LeagueDbHelper extends SQLiteOpenHelper {
-
+public class LeagueDbHelper {
+/*
     private static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "football.db";
     Context context ;
@@ -59,5 +59,5 @@ public class LeagueDbHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + LeagueContract.LeagueTableEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + LeagueContract.MatchesEntry.TABLE_NAME);
         onCreate(sqLiteDatabase);
-    }
+    }*/
 }

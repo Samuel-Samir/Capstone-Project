@@ -59,6 +59,7 @@ public class LeagueMatchAdapter  extends RecyclerView.Adapter<LeagueMatchAdapter
         {
             holder.status.setTextColor(holder.status.getResources().getColor(R.color.red));
             holder.status.setText(matcheData.getStatus());
+
             String result="";
             result+=matcheData.getResult().getGoalsHomeTeam() + " : " + matcheData.getResult().getGoalsAwayTeam();
             holder.result.setText(result);

@@ -1,10 +1,13 @@
 package samuel.example.com.soccernow.view.football;
 
 
+import android.content.ContentValues;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -23,14 +27,18 @@ import retrofit2.Response;
 import samuel.example.com.soccernow.R;
 import samuel.example.com.soccernow.adapter.LeagueMatchAdapter;
 import samuel.example.com.soccernow.model.ApiInterface;
+import samuel.example.com.soccernow.model.dataBase.LeagueContract;
+import samuel.example.com.soccernow.model.dataBase.LeagueProvider;
 import samuel.example.com.soccernow.model.football.leagueMatches.LeagueMatchesResponse;
+import samuel.example.com.soccernow.model.football.leagueMatches.MatchResult;
 import samuel.example.com.soccernow.model.football.leagueMatches.MatcheData;
+import samuel.example.com.soccernow.model.football.leagueTable.LeagueData;
 import samuel.example.com.soccernow.model.football.leagueTable.LeagueTableResponse;
 
+import static samuel.example.com.soccernow.model.dataBase.LeagueContract.MatchesEntry.*;
 import static samuel.example.com.soccernow.utilities.checkInternetConnection;
 import static samuel.example.com.soccernow.utilities.getFavoritLeagueFromSharedPreferences;
-import static samuel.example.com.soccernow.view.football.LeagueFragment.LEAGUE_CODE;
-import static samuel.example.com.soccernow.view.football.LeagueFragment.LEAGUE_NEMA;
+import static samuel.example.com.soccernow.view.football.LeagueFragment.*;
 
 public class MatchesFragment extends Fragment {
 
@@ -47,6 +55,7 @@ public class MatchesFragment extends Fragment {
     private LinearLayout errorLinearLayout ;
     private Button retryConnection;
     private int favoriteLeagueCode ;
+    private TextView dataBaseEmpty;
 
 
 
@@ -60,6 +69,7 @@ public class MatchesFragment extends Fragment {
         allContentLinearLayout=(LinearLayout) rootView.findViewById(R.id.content_all);
         errorLinearLayout = (LinearLayout) rootView.findViewById(R.id.connection_error);
         retryConnection =(Button) rootView.findViewById(R.id.retry_button);
+        dataBaseEmpty = (TextView) rootView.findViewById(R.id.data_base_impty);
         leagueMatchAdapter = new LeagueMatchAdapter();
         favoriteLeagueCode =getFavoritLeagueFromSharedPreferences(getContext());
 
@@ -95,6 +105,7 @@ public class MatchesFragment extends Fragment {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(leagueMatchAdapter);
+        dataBaseEmpty.setVisibility(View.GONE);
 
         if (savedInstanceState ==null) {
             if (checkInternetConnection()) {
@@ -108,7 +119,9 @@ public class MatchesFragment extends Fragment {
                         LeagueMatchesResponse leagueMatchesResponse = response.body();
                         leagueMatchAdapter.setApiResponse(leagueMatchesResponse.getMatcheDataList());
                         matcheDataList = leagueMatchesResponse.getMatcheDataList();
+                        insertDataDataBase ();
                         progressBar.setVisibility(View.GONE);
+
 
                     }
 
@@ -123,7 +136,8 @@ public class MatchesFragment extends Fragment {
             }
             else if (favoriteLeagueCode==chapionCode)
             {
-                Toast.makeText(getContext(),getActivity().getResources().getString(R.string.dataNotAvalible) ,Toast.LENGTH_LONG).show();
+
+                loadDataDataBase ();
             }
             else {
 
@@ -144,6 +158,68 @@ public class MatchesFragment extends Fragment {
         }
     }
 
+
+
+    public void insertDataDataBase ()
+    {
+
+        getActivity().getContentResolver().delete(LeagueProvider.MatchesIngredients.MATCHEST_URI, null, null);
+        ContentValues[] cvs = new ContentValues[matcheDataList.size()];
+        for (int i=0;i<matcheDataList.size() ;i++)
+        {
+            MatcheData matcheData = matcheDataList.get(i);
+
+            cvs [i] = new ContentValues();
+            cvs[i].put(COLUMN_DATA ,matcheData.getDate());
+            cvs[i].put(COLUMN_STATUS ,matcheData.getStatus());
+            cvs[i].put(COLUMN_HOME_TEAM ,matcheData.getHomeTeamName());
+            cvs[i].put(COLUMN_AWAY_TEAM ,matcheData.getAwayTeamName());
+            cvs[i].put(COLUMN_HOME_GOALS ,matcheData.getResult().getGoalsHomeTeam());
+            cvs[i].put(COLUMN_AWAY_GOALS ,matcheData.getResult().getGoalsAwayTeam());
+
+        }
+        int numOfRows = getActivity().getContentResolver().bulkInsert(LeagueProvider.MatchesIngredients.MATCHEST_URI, cvs);
+        Log.d("DataBase size" ,String.valueOf(numOfRows));
+
+    }
+
+    public void loadDataDataBase ()
+    {
+        Cursor cursor = getActivity().getContentResolver().query(LeagueProvider.MatchesIngredients.MATCHEST_URI,
+                null, null, null, null);
+        if (cursor==null ||cursor.getCount()==0 )
+        {
+            //Toast.makeText(getContext(),getActivity().getResources().getString(R.string.dataNotAvalible) ,Toast.LENGTH_LONG).show();
+            dataBaseEmpty.setVisibility(View.VISIBLE);
+            errorLinearLayout.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+            allContentLinearLayout.setVisibility(View.GONE);
+
+
+        }
+        else {
+            List <MatcheData> matcheDatas =new ArrayList<>();
+            while(cursor.moveToNext())
+            {
+                MatcheData matcheData = new MatcheData();
+                matcheData.setDate(cursor.getString(cursor.getColumnIndex(COLUMN_DATA)));
+                matcheData.setStatus(cursor.getString(cursor.getColumnIndex(COLUMN_STATUS)));
+                matcheData.setHomeTeamName(cursor.getString(cursor.getColumnIndex(COLUMN_HOME_TEAM)));
+                matcheData.setAwayTeamName(cursor.getString(cursor.getColumnIndex(COLUMN_AWAY_TEAM)));
+                MatchResult matchResult = new MatchResult();
+                matchResult.setGoalsHomeTeam(cursor.getInt(cursor.getColumnIndex(COLUMN_HOME_GOALS)));
+                matchResult.setGoalsAwayTeam(cursor.getInt(cursor.getColumnIndex(COLUMN_AWAY_GOALS)));
+                matcheData.setResult(matchResult);
+                matcheDatas.add(matcheData);
+            }
+            this.matcheDataList =matcheDatas;
+            leagueMatchAdapter.setApiResponse(matcheDataList);
+            progressBar.setVisibility(View.GONE);
+
+
+
+        }
+    }
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);

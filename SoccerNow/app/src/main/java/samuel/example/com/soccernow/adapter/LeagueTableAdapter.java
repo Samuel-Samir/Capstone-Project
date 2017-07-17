@@ -70,32 +70,6 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
         holder.draws.setText(String.valueOf(leagueData.getDraws()));
         holder.loses.setText(String.valueOf(leagueData.getLosses()));
         holder.pts.setText(String.valueOf(leagueData.getPoints()));
-        /*
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                GenericRequestBuilder requestBuilder;
-                Context context = holder.league_icon.getContext();
-                String imagUri= leagueData.getCrestURI();
-                Uri uri = Uri.parse(imagUri);
-                requestBuilder = Glide.with(context)
-                        .using(Glide.buildStreamModelLoader(Uri.class, context), InputStream.class)
-                        .from(Uri.class)
-                        .as(SVG.class)
-                        .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
-                        .sourceEncoder(new StreamEncoder())
-                        .cacheDecoder(new FileToStreamDecoder<SVG>(new SvgDecoder()))
-                        .decoder(new SvgDecoder())
-                        .animate(android.R.anim.fade_in)
-                        .listener(new SvgSoftwareLayerSetter<Uri>());
-                requestBuilder
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .load(uri)
-                        .into(holder.league_icon);
-            }
-        });*/
-
         holder.holderLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,24 +77,27 @@ public class LeagueTableAdapter extends RecyclerView.Adapter<LeagueTableAdapter.
             }
         });
 
-        GenericRequestBuilder requestBuilder;
-        Context context = holder.league_icon.getContext();
-        String imagUri= leagueData.getCrestURI();
-        Uri uri = Uri.parse(imagUri);
-        requestBuilder = Glide.with(context)
-                .using(Glide.buildStreamModelLoader(Uri.class, context), InputStream.class)
-                .from(Uri.class)
-                .as(SVG.class)
-                .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
-                .sourceEncoder(new StreamEncoder())
-                .cacheDecoder(new FileToStreamDecoder<SVG>(new SvgDecoder()))
-                .decoder(new SvgDecoder())
-                .animate(android.R.anim.fade_in)
-                .listener(new SvgSoftwareLayerSetter<Uri>());
-        requestBuilder
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .load(uri)
-                .into(holder.league_icon );
+
+        if (leagueData.getCrestURI()!=null) {
+            GenericRequestBuilder requestBuilder;
+            Context context = holder.league_icon.getContext();
+            String imagUri = leagueData.getCrestURI();
+            Uri uri = Uri.parse(imagUri);
+            requestBuilder = Glide.with(context)
+                    .using(Glide.buildStreamModelLoader(Uri.class, context), InputStream.class)
+                    .from(Uri.class)
+                    .as(SVG.class)
+                    .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
+                    .sourceEncoder(new StreamEncoder())
+                    .cacheDecoder(new FileToStreamDecoder<SVG>(new SvgDecoder()))
+                    .decoder(new SvgDecoder())
+                    .animate(android.R.anim.fade_in)
+                    .listener(new SvgSoftwareLayerSetter<Uri>());
+            requestBuilder
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .load(uri)
+                    .into(holder.league_icon);
+        }
 
     }
 

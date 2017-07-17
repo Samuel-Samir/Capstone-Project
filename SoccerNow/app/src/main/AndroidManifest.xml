@@ -35,6 +35,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.FavoriteleagueActivity"></activity>
+        <provider
+            android:authorities="samuel.example.com.soccernow"
+            android:name=".model.dataBase.generated.LeagueProvider"
+            android:exported="true"/>
+
     </application>
 
 </manifest>

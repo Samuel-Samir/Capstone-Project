@@ -32,6 +32,7 @@
     <string name="dataNotAvalible">Team Data Not Available</string>
     <string name="fav_league">Favorite League</string>
     <string name="league_code">code</string>
+    <string name="dadabaseEmpty">DataBase Is Empty</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

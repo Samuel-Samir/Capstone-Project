@@ -66,8 +66,22 @@
         android:orientation="vertical"
         android:gravity="center"
         android:visibility="gone"
+        android:textSize="@dimen/text_size"
+
         >
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dadabaseEmpty"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/dp_16"
+            android:textColor="@color/black"
+            android:id="@+id/data_base_impty"
+            android:padding="16dp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            />
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="@dimen/errorImage"
