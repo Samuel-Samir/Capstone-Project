@@ -28,7 +28,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="22"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
                 android:id="@+id/player_num"
@@ -48,7 +47,6 @@
             android:gravity="center_horizontal"
             android:paddingBottom="@dimen/dp_8"
             android:paddingTop="@dimen/dp_8"
-            android:text="Keylor Navas"
             android:textSize="@dimen/defult_text_size"
 
             />
@@ -60,7 +58,6 @@
             android:gravity="center_horizontal"
             android:paddingBottom="@dimen/dp_8"
             android:paddingTop="@dimen/dp_8"
-            android:text="Keeper"
             android:textSize="@dimen/defult_text_size"
             android:id="@+id/player_position"
 

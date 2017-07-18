@@ -31,7 +31,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight=".6"
-                android:text="Names"
+                android:text="@string/name"
                 android:gravity="center"
 
                 android:textColor="@color/black"
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight=".2"
                 android:textColor="@color/black"
-                android:text="Pts."
+                android:text="@string/pts"
                 android:gravity="center"
                 android:textSize="@dimen/defult_text_size" />
 

@@ -69,6 +69,7 @@ public class FavoriteleagueAdapter extends RecyclerView.Adapter<FavoriteleagueAd
             public void onClick(View v) {
                 saveFavoritLeagueSharedPreferences (leagueCodeList.get(position) ,context);
                 context.startActivity(new Intent(context, ContentActivity.class));
+                context.finish();
 
             }
         });

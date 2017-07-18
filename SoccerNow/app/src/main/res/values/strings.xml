@@ -39,6 +39,15 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sign_out">Sign Out</string>
     <string name="empty_widget_view">Data Not Available</string>
+    <string name="send">Send</string>
+    <string name="choose_fav">choose your favort league</string>
+    <string name="name">Name</string>
+    <string name="position">Position</string>
+    <string name="win">Wins</string>
+    <string name="drwas">Draws</string>
+    <string name="losse">Loses</string>
+    <string name="pts">Pts.</string>
+    <string name="sb">Sport Bible</string>
 
 
 </resources>

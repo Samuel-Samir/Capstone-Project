@@ -19,7 +19,6 @@
         android:gravity="center"
         android:paddingBottom="@dimen/dp_8"
         android:paddingTop="@dimen/dp_8"
-        android:text="99"
         android:textSize="@dimen/defult_text_size"
         android:id="@+id/position_textView"
         android:textColor="@color/black"
@@ -42,7 +41,6 @@
         android:gravity="center"
         android:paddingBottom="@dimen/dp_8"
         android:paddingTop="@dimen/dp_8"
-        android:text="Real Madrid CF"
         android:textSize="@dimen/defult_text_size"
         android:id="@+id/teamName_textView"
         android:textColor="@color/black"
@@ -56,7 +54,6 @@
         android:gravity="center"
         android:paddingBottom="@dimen/dp_8"
         android:paddingTop="@dimen/dp_8"
-        android:text="93"
         android:textSize="@dimen/defult_text_size"
         android:id="@+id/win_textView"
 
@@ -69,7 +66,6 @@
         android:gravity="center"
         android:paddingBottom="@dimen/dp_8"
         android:paddingTop="@dimen/dp_8"
-        android:text="29"
         android:textSize="@dimen/defult_text_size"
         android:id="@+id/draes_textView"
 
@@ -82,7 +78,6 @@
         android:gravity="center"
         android:paddingBottom="@dimen/dp_8"
         android:paddingTop="@dimen/dp_8"
-        android:text="6"
         android:textSize="@dimen/defult_text_size"
         android:id="@+id/loses_textView"
         />
@@ -94,7 +89,6 @@
         android:gravity="center"
         android:paddingBottom="@dimen/dp_8"
         android:paddingTop="@dimen/dp_8"
-        android:text="3"
         android:textSize="@dimen/defult_text_size"
         android:id="@+id/pts_textView"
         android:textColor="@color/black"

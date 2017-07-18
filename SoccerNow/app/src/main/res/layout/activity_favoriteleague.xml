@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:text="choose your favort league"
-        android:textSize="25dp"
+        android:text="@string/choose_fav"
+        android:textSize="@dimen/big_text"
         android:gravity="center"
         android:padding="@dimen/dp_16"
         />

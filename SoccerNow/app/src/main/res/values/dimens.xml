@@ -17,5 +17,7 @@
     <dimen name="errorImage">100dp</dimen>
     <dimen name="teamImageSmall">25dp</dimen>
     <dimen name="fram_layout_hight">40dp</dimen>
+    <dimen name="big_text">25sp</dimen>
+    <dimen name="big_100_pic">100dp</dimen>
 
 </resources>

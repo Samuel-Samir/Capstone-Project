@@ -20,7 +20,7 @@ tools:context="samuel.example.com.soccernow.view.SplashScreenActivity">
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_weight="60"
-    android:src="@drawable/icon" />
+    android:src="@drawable/splace" />
 
 <TextView
     android:layout_width="match_parent"
