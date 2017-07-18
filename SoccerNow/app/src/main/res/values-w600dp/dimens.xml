@@ -1,0 +1,23 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">24dp</dimen>
+    <dimen name="activity_vertical_margin">24dp</dimen>
+    <dimen name="nav_header_vertical_spacing">24dp</dimen>
+    <dimen name="nav_header_height">190dp</dimen>
+    <dimen name="fab_margin">34dp</dimen>
+    <dimen name="recycler_view_padding">40dp</dimen>
+    <dimen name="dp_4">8dp</dimen>
+    <dimen name="dp_8">12dp</dimen>
+    <dimen name="dp_16">24dp</dimen>
+    <dimen name="small_pic">60dp</dimen>
+    <dimen name="text_size">34sp</dimen>
+    <dimen name="big_pic">230dp</dimen>
+    <dimen name="defult_text_size">18sp</dimen>
+    <dimen name="leagueImage">100dp</dimen>
+    <dimen name="errorImage">120dp</dimen>
+    <dimen name="teamImageSmall">34dp</dimen>
+    <dimen name="fram_layout_hight">50dp</dimen>
+    <dimen name="big_text">34sp</dimen>
+    <dimen name="big_100_pic">120dp</dimen>
+
+</resources>
