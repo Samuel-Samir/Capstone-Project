@@ -7,20 +7,11 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import samuel.example.com.soccernow.model.football.leagueTable.LeagueData;
-
 /**
  * Created by samuel on 7/14/2017.
  */
 
-public class LeagueMatchesResponse  implements Parcelable{
-
-    @SerializedName("fixtures")
-    private List<MatcheData> matcheDataList  ;
-
-    public LeagueMatchesResponse (){}
-    protected LeagueMatchesResponse(Parcel in) {
-    }
+public class LeagueMatchesResponse implements Parcelable {
 
     public static final Creator<LeagueMatchesResponse> CREATOR = new Creator<LeagueMatchesResponse>() {
         @Override
@@ -33,6 +24,14 @@ public class LeagueMatchesResponse  implements Parcelable{
             return new LeagueMatchesResponse[size];
         }
     };
+    @SerializedName("fixtures")
+    private List<MatcheData> matcheDataList;
+
+    public LeagueMatchesResponse() {
+    }
+
+    protected LeagueMatchesResponse(Parcel in) {
+    }
 
     public List<MatcheData> getMatcheDataList() {
         return matcheDataList;

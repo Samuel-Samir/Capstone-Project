@@ -23,5 +23,4 @@
     <include layout="@layout/content_content" />
 
 
-
 </android.support.design.widget.CoordinatorLayout>

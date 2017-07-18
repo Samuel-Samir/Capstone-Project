@@ -10,9 +10,9 @@ public class MatchResult {
 
 
     @SerializedName("goalsHomeTeam")
-    private int goalsHomeTeam ;
+    private int goalsHomeTeam;
     @SerializedName("goalsAwayTeam")
-    private int goalsAwayTeam ;
+    private int goalsAwayTeam;
 
     public int getGoalsHomeTeam() {
         return goalsHomeTeam;

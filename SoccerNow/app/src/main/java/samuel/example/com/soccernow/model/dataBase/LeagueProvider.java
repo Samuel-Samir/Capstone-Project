@@ -12,10 +12,9 @@ import net.simonvt.schematic.annotation.TableEndpoint;
  */
 
 
-@ContentProvider(authority = LeagueProvider.AUTHORITY , database =LeagueContract.RecipesDatabase.class  )
+@ContentProvider(authority = LeagueProvider.AUTHORITY, database = LeagueContract.RecipesDatabase.class)
 public class LeagueProvider {
     public static final String AUTHORITY = "samuel.example.com.soccernow";
-
 
 
     @TableEndpoint(table = LeagueContract.RecipesDatabase.LEAGUETABLE)
@@ -39,7 +38,6 @@ public class LeagueProvider {
                 .appendPath(LeagueContract.RecipesDatabase.MATCHESTABLE)
                 .build();
     }
-
 
 
 }

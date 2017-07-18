@@ -48,6 +48,15 @@
     <string name="losse">Loses</string>
     <string name="pts">Pts.</string>
     <string name="sb">Sport Bible</string>
+    <string name="chatDesc">Image upload from gallery</string>
+    <string name="league_name">League Icon</string>
+    <string name="image">Image upload from gallerys</string>
+    <string name="team_1">Home Team</string>
+    <string name="ayway_team">away team</string>
+    <string name="news_pic">news image</string>
+    <string name="league_image">League Image</string>
+    <string name="signed_in">Signed in!</string>
+    <string name="signed_cancel">Sign in canceled</string>
 
 
 </resources>

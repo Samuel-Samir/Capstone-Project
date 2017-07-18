@@ -1,16 +1,10 @@
 package samuel.example.com.soccernow.view.news;
 
-import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.BinderThread;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,31 +18,27 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import samuel.example.com.soccernow.model.ApiInterface;
-import samuel.example.com.soccernow.adapter.NewsAdapter;
 import samuel.example.com.soccernow.R;
+import samuel.example.com.soccernow.adapter.NewsAdapter;
+import samuel.example.com.soccernow.model.ApiInterface;
 import samuel.example.com.soccernow.model.articleModel.Article;
 import samuel.example.com.soccernow.model.articleModel.NewsResponse;
 
-import static samuel.example.com.soccernow.utilities.checkInternetConnection;
-import static samuel.example.com.soccernow.utilities.isTablet;
+import static samuel.example.com.soccernow.Utilities.checkInternetConnection;
+import static samuel.example.com.soccernow.Utilities.isTablet;
 
 
 public class TopNewsFragment extends Fragment {
 
+    public static String BUNDLE_TOP_NEWS = "topNews";
+    public static String TOP_NEWS_TAG = "topNewsTag";
     private RecyclerView mRecyclerView;
     private NewsAdapter newsAdapter;
-    private List<Article> topNewsArticles ;
+    private List<Article> topNewsArticles;
     private ProgressBar progressBar;
-    private LinearLayout errorLinearLayout ;
+    private LinearLayout errorLinearLayout;
     private Button retryConnection;
-    private String TOP_SAVE_INSTANCESTATE= "savedInstances2";
-    public static String BUNDLE_TOP_NEWS ="topNews";
-    public static String TOP_NEWS_TAG ="topNewsTag";
-
-
-
-
+    private String TOP_SAVE_INSTANCESTATE = "savedInstances2";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,9 +49,9 @@ public class TopNewsFragment extends Fragment {
         newsAdapter = new NewsAdapter();
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         errorLinearLayout = (LinearLayout) rootView.findViewById(R.id.connection_error);
-        retryConnection =(Button) rootView.findViewById(R.id.retry_button);
+        retryConnection = (Button) rootView.findViewById(R.id.retry_button);
         progressBar.setVisibility(View.VISIBLE);
-        onOrientationChange(getResources().getConfiguration().orientation , savedInstanceState);
+        onOrientationChange(getResources().getConfiguration().orientation, savedInstanceState);
 
         retryConnection.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,38 +60,35 @@ public class TopNewsFragment extends Fragment {
             }
         });
 
-        return  rootView ;
+        return rootView;
     }
 
 
-    public void onOrientationChange(int orientation ,  Bundle savedInstanceState){
-        int landScape=2;
-        int portrait= 1;
-        if (isTablet(getContext()))
-        {
-            landScape=2;
-            portrait=2;
+    public void onOrientationChange(int orientation, Bundle savedInstanceState) {
+        int landScape = 2;
+        int portrait = 1;
+        if (isTablet(getContext())) {
+            landScape = 2;
+            portrait = 1;
         }
 
-        if(orientation == Configuration.ORIENTATION_PORTRAIT){
-            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(portrait, StaggeredGridLayoutManager.VERTICAL ));
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(portrait, StaggeredGridLayoutManager.VERTICAL));
+            mRecyclerView.setAdapter(newsAdapter);
+
+        } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(landScape, StaggeredGridLayoutManager.VERTICAL));
             mRecyclerView.setAdapter(newsAdapter);
 
         }
-        else if(orientation == Configuration.ORIENTATION_LANDSCAPE){
-
-            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(landScape, StaggeredGridLayoutManager.VERTICAL ));
-            mRecyclerView.setAdapter(newsAdapter);
-
-        }
-        loadNewsResponse (savedInstanceState);
+        loadNewsResponse(savedInstanceState);
 
     }
 
 
-    public void loadNewsResponse ( Bundle savedInstanceState)
-    {
-        if (savedInstanceState==null) {
+    public void loadNewsResponse(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
 
             if (checkInternetConnection()) {
 
@@ -130,24 +117,18 @@ public class TopNewsFragment extends Fragment {
 
                     }
                 });
-            }
-            else {
+            } else {
                 mRecyclerView.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);
                 errorLinearLayout.setVisibility(View.VISIBLE);
 
 
-
             }
-        }
+        } else if (savedInstanceState != null) {
 
-        else if (savedInstanceState!=null)
-        {
+            NewsResponse newsResponse = savedInstanceState.getParcelable(TOP_SAVE_INSTANCESTATE);
 
-            NewsResponse newsResponse =   savedInstanceState.getParcelable(TOP_SAVE_INSTANCESTATE);
-
-            if(newsResponse.getArticles()!=null)
-            {
+            if (newsResponse.getArticles() != null) {
                 topNewsArticles = newsResponse.getArticles();
                 newsAdapter.setApiResponse(topNewsArticles);
             }
@@ -158,9 +139,9 @@ public class TopNewsFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        NewsResponse newsResponse = new NewsResponse() ;
+        NewsResponse newsResponse = new NewsResponse();
         newsResponse.setArticles(topNewsArticles);
-        outState.putParcelable(  TOP_SAVE_INSTANCESTATE , newsResponse);
+        outState.putParcelable(TOP_SAVE_INSTANCESTATE, newsResponse);
     }
 
 

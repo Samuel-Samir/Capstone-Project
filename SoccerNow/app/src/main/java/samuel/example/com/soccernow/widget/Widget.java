@@ -1,24 +1,18 @@
 package samuel.example.com.soccernow.widget;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
-import android.view.View;
 import android.widget.RemoteViews;
 
 import samuel.example.com.soccernow.R;
-import samuel.example.com.soccernow.model.dataBase.LeagueProvider;
-import samuel.example.com.soccernow.view.ContentActivity;
 
 /**
  * Created by samuel on 7/18/2017.
  */
 
-public class Widget  extends AppWidgetProvider {
+public class Widget extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {

@@ -10,20 +10,20 @@ import java.util.ArrayList;
  * Created by samuel on 6/25/2017.
  */
 
-public class ViewPagerAdapter  extends FragmentPagerAdapter {
+public class ViewPagerAdapter extends FragmentPagerAdapter {
 
-    private ArrayList<String> fragmentsNames ;
-    private ArrayList <Fragment> fragmentsList;
+    private ArrayList<String> fragmentsNames;
+    private ArrayList<Fragment> fragmentsList;
+
     public ViewPagerAdapter(FragmentManager supportFragmentManager) {
         super(supportFragmentManager);
-        this.fragmentsNames =new ArrayList<String>();
+        this.fragmentsNames = new ArrayList<String>();
         this.fragmentsList = new ArrayList<Fragment>();
     }
 
-    public void setData (ArrayList<String> fragmentsNames ,ArrayList <Fragment> fragmentsList )
-    {
-        this.fragmentsList =fragmentsList ;
-        this.fragmentsNames =fragmentsNames;
+    public void setData(ArrayList<String> fragmentsNames, ArrayList<Fragment> fragmentsList) {
+        this.fragmentsList = fragmentsList;
+        this.fragmentsNames = fragmentsNames;
         notifyDataSetChanged();
     }
 
@@ -35,11 +35,9 @@ public class ViewPagerAdapter  extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        if(fragmentsList == null)
-        {
+        if (fragmentsList == null) {
             return 0;
-        }
-        else
+        } else
             return fragmentsList.size();
     }
 

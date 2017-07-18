@@ -1,7 +1,5 @@
 package samuel.example.com.soccernow.view;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -50,13 +48,11 @@ import samuel.example.com.soccernow.model.FriendlyMessage;
 
 public class ChateActivity extends AppCompatActivity {
 
-    private static final String TAG = "ChateActivity";
-
     public static final String ANONYMOUS = "anonymous";
     public static final int DEFAULT_MSG_LENGTH_LIMIT = 1000;
     public static final String FRIENDLY_MSG_LENGTH_KEY = "friendly_msg_length";
-
     public static final int RC_SIGN_IN = 1;
+    private static final String TAG = "ChateActivity";
     private static final int RC_PHOTO_PICKER = 2;
 
     private ListView mMessageListView;
@@ -108,7 +104,7 @@ public class ChateActivity extends AppCompatActivity {
         mMessageListView.setAdapter(mMessageAdapter);
 
         // Initialize progress bar
-     //   mProgressBar.setVisibility(ProgressBar.INVISIBLE);
+        //   mProgressBar.setVisibility(ProgressBar.INVISIBLE);
 
         // ImagePickerButton shows an image picker to upload a image for a message
         mPhotoPickerButton.setOnClickListener(new View.OnClickListener() {
@@ -199,10 +195,12 @@ public class ChateActivity extends AppCompatActivity {
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
                 // Sign-in succeeded, set up the UI
-                Toast.makeText(this, "Signed in!", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(this, getResources().getString(R.string.signed_in), Toast.LENGTH_SHORT).show();
             } else if (resultCode == RESULT_CANCELED) {
                 // Sign in was canceled by the user, finish the activity
-                Toast.makeText(this, "Sign in canceled", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(this, getResources().getString(R.string.signed_cancel), Toast.LENGTH_SHORT).show();
                 finish();
             }
         } else if (requestCode == RC_PHOTO_PICKER && resultCode == RESULT_OK) {
@@ -281,10 +279,17 @@ public class ChateActivity extends AppCompatActivity {
                     mProgressBar.setVisibility(ProgressBar.INVISIBLE);
                 }
 
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-                public void onChildRemoved(DataSnapshot dataSnapshot) {}
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-                public void onCancelled(DatabaseError databaseError) {}
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                }
+
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                }
+
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                }
+
+                public void onCancelled(DatabaseError databaseError) {
+                }
             };
             mMessagesDatabaseReference.addChildEventListener(mChildEventListener);
         }

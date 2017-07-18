@@ -12,29 +12,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class Article implements Parcelable {
 
-    @SerializedName("author")
-    private String author ;
-    @SerializedName("title")
-    private String title ;
-    @SerializedName("description")
-    private String description ;
-    @SerializedName("url")
-    private String url;
-    @SerializedName("urlToImage")
-    private String urlToImage ;
-    @SerializedName("publishedAt")
-    private String publishedAt ;
-
-
-    protected Article(Parcel in) {
-        author = in.readString();
-        title = in.readString();
-        description = in.readString();
-        url = in.readString();
-        urlToImage = in.readString();
-        publishedAt = in.readString();
-    }
-
     public static final Creator<Article> CREATOR = new Creator<Article>() {
         @Override
         public Article createFromParcel(Parcel in) {
@@ -46,6 +23,27 @@ public class Article implements Parcelable {
             return new Article[size];
         }
     };
+    @SerializedName("author")
+    private String author;
+    @SerializedName("title")
+    private String title;
+    @SerializedName("description")
+    private String description;
+    @SerializedName("url")
+    private String url;
+    @SerializedName("urlToImage")
+    private String urlToImage;
+    @SerializedName("publishedAt")
+    private String publishedAt;
+
+    protected Article(Parcel in) {
+        author = in.readString();
+        title = in.readString();
+        description = in.readString();
+        url = in.readString();
+        urlToImage = in.readString();
+        publishedAt = in.readString();
+    }
 
     public String getAuthor() {
         return author;

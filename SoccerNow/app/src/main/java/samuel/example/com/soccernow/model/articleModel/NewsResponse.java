@@ -14,23 +14,6 @@ import java.util.List;
 
 public class NewsResponse implements Parcelable {
 
-    @SerializedName("status")
-    private String status ;
-    @SerializedName("source")
-    private String source ;
-    @SerializedName("sortBy")
-    private String sortBy ;
-    @SerializedName("articles")
-    private List <Article> articles ;
-
-    public  NewsResponse () {}
-    protected NewsResponse(Parcel in) {
-        status = in.readString();
-        source = in.readString();
-        sortBy = in.readString();
-        articles = in.createTypedArrayList(Article.CREATOR);
-    }
-
     public static final Creator<NewsResponse> CREATOR = new Creator<NewsResponse>() {
         @Override
         public NewsResponse createFromParcel(Parcel in) {
@@ -42,18 +25,36 @@ public class NewsResponse implements Parcelable {
             return new NewsResponse[size];
         }
     };
+    @SerializedName("status")
+    private String status;
+    @SerializedName("source")
+    private String source;
+    @SerializedName("sortBy")
+    private String sortBy;
+    @SerializedName("articles")
+    private List<Article> articles;
+
+    public NewsResponse() {
+    }
+
+    protected NewsResponse(Parcel in) {
+        status = in.readString();
+        source = in.readString();
+        sortBy = in.readString();
+        articles = in.createTypedArrayList(Article.CREATOR);
+    }
 
     public List<Article> getArticles() {
         return articles;
     }
 
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
+    }
+
     @Override
     public int describeContents() {
         return 0;
-    }
-
-    public void setArticles(List<Article> articles) {
-        this.articles = articles;
     }
 
     @Override

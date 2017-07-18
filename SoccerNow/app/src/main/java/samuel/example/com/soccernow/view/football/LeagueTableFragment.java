@@ -27,58 +27,60 @@ import retrofit2.Response;
 import samuel.example.com.soccernow.R;
 import samuel.example.com.soccernow.adapter.LeagueTableAdapter;
 import samuel.example.com.soccernow.model.ApiInterface;
-import samuel.example.com.soccernow.model.articleModel.NewsResponse;
 import samuel.example.com.soccernow.model.dataBase.LeagueContract;
 import samuel.example.com.soccernow.model.dataBase.LeagueProvider;
 import samuel.example.com.soccernow.model.football.leagueTable.LeagueData;
 import samuel.example.com.soccernow.model.football.leagueTable.LeagueTableResponse;
-import samuel.example.com.soccernow.view.ContentActivity;
 
-import static samuel.example.com.soccernow.model.dataBase.LeagueContract.LeagueTableEntry.*;
-import static samuel.example.com.soccernow.utilities.checkInternetConnection;
-import static samuel.example.com.soccernow.utilities.getFavoritLeagueFromSharedPreferences;
-import static samuel.example.com.soccernow.view.football.LeagueFragment.*;
+import static samuel.example.com.soccernow.Utilities.checkInternetConnection;
+import static samuel.example.com.soccernow.Utilities.getFavoritLeagueFromSharedPreferences;
+import static samuel.example.com.soccernow.model.dataBase.LeagueContract.LeagueTableEntry.COLUMN_DRAWS;
+import static samuel.example.com.soccernow.model.dataBase.LeagueContract.LeagueTableEntry.COLUMN_IMAGE_URL;
+import static samuel.example.com.soccernow.model.dataBase.LeagueContract.LeagueTableEntry.COLUMN_LOSSES;
+import static samuel.example.com.soccernow.model.dataBase.LeagueContract.LeagueTableEntry.COLUMN_POINTS;
+import static samuel.example.com.soccernow.model.dataBase.LeagueContract.LeagueTableEntry.COLUMN_POSITION;
+import static samuel.example.com.soccernow.model.dataBase.LeagueContract.LeagueTableEntry.COLUMN_TEAM_NAME;
+import static samuel.example.com.soccernow.model.dataBase.LeagueContract.LeagueTableEntry.COLUMN_WIN;
+import static samuel.example.com.soccernow.view.football.LeagueFragment.LEAGUE_CODE;
+import static samuel.example.com.soccernow.view.football.LeagueFragment.LEAGUE_NEMA;
 
 public class LeagueTableFragment extends Fragment {
-
-    private int chapionCode;
-    private String leagueNmae;
-    private TextView leagueTextView;
-    private ImageView leagueImageView;
-    private RecyclerView mRecyclerView;
-    private LeagueTableAdapter leagueTableAdapter;
-    private List <LeagueData> leagueDataList ;
-    private ProgressBar progressBar;
-    private LinearLayout allContentLinearLayout;
-    private LinearLayout errorLinearLayout ;
-    private Button retryConnection;
-    private int favoriteLeagueCode ;
 
     public static final String TEAM_CODE = "team_code";
     public static final String TEAM_NAME = "team_name";
     public static final String TEAM_IMAGE = "team_image";
     public static final String TEAM_BUNDEL = "team_data";
     public static final String TEAM_SAVE_INSTANCE = "team_SaveInstance";
+    private int chapionCode;
+    private String leagueNmae;
+    private TextView leagueTextView;
+    private ImageView leagueImageView;
+    private RecyclerView mRecyclerView;
+    private LeagueTableAdapter leagueTableAdapter;
+    private List<LeagueData> leagueDataList;
+    private ProgressBar progressBar;
+    private LinearLayout allContentLinearLayout;
+    private LinearLayout errorLinearLayout;
+    private Button retryConnection;
+    private int favoriteLeagueCode;
     private TextView dataBaseEmpty;
-
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView =inflater.inflate(R.layout.fragment_league_table, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_league_table, container, false);
         leagueTableAdapter = new LeagueTableAdapter();
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         progressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
-        allContentLinearLayout=(LinearLayout) rootView.findViewById(R.id.content_all);
+        allContentLinearLayout = (LinearLayout) rootView.findViewById(R.id.content_all);
         errorLinearLayout = (LinearLayout) rootView.findViewById(R.id.connection_error);
-        retryConnection =(Button) rootView.findViewById(R.id.retry_button);
+        retryConnection = (Button) rootView.findViewById(R.id.retry_button);
         dataBaseEmpty = (TextView) rootView.findViewById(R.id.data_base_impty);
 
-        favoriteLeagueCode =getFavoritLeagueFromSharedPreferences(getContext());
+        favoriteLeagueCode = getFavoritLeagueFromSharedPreferences(getContext());
 
-        if (getArguments()!= null && getArguments().getInt(LEAGUE_CODE)!=0 )
-        {
+        if (getArguments() != null && getArguments().getInt(LEAGUE_CODE) != 0) {
             progressBar.setVisibility(View.VISIBLE);
 
             chapionCode = getArguments().getInt(LEAGUE_CODE);
@@ -87,16 +89,16 @@ public class LeagueTableFragment extends Fragment {
             leagueTextView.setText(leagueNmae);
             leagueImageView = (ImageView) rootView.findViewById(R.id.leagueImageView);
             leagueImageView.setImageDrawable(getActivity().getResources().getDrawable(getActivity().getResources()
-                    .getIdentifier("p"+chapionCode ,"drawable" , getActivity().getPackageName())));
-
-            loadLeagueTable (savedInstanceState);
+                    .getIdentifier("p" + chapionCode, "drawable", getActivity().getPackageName())));
+            leagueImageView.setContentDescription(leagueNmae);
+            loadLeagueTable(savedInstanceState);
         }
 
 
         leagueTableAdapter.setRecyclerViewCallback(new LeagueTableAdapter.RecyclerViewTeamCallback() {
             @Override
             public void onItemClick(int position) {
-                if (leagueDataList.get(position).get_links()!=null) {
+                if (leagueDataList.get(position).get_links() != null) {
                     String teamCode = leagueDataList.get(position).get_links().getTeam().getHref();
                     String[] cutLink = teamCode.split("teams/");
                     String teamName = leagueDataList.get(position).getTeamName();
@@ -112,8 +114,7 @@ public class LeagueTableFragment extends Fragment {
                     } else {
                         Toast.makeText(getContext(), getActivity().getResources().getString(R.string.dataNotAvalible), Toast.LENGTH_LONG).show();
                     }
-                }
-                else {
+                } else {
                     Toast.makeText(getContext(), getActivity().getResources().getString(R.string.dataNotAvalible), Toast.LENGTH_LONG).show();
                 }
 
@@ -127,16 +128,15 @@ public class LeagueTableFragment extends Fragment {
             }
         });
 
-        return  rootView;
+        return rootView;
     }
 
-    private void loadLeagueTable (Bundle savedInstanceState)
-    {
+    private void loadLeagueTable(Bundle savedInstanceState) {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(leagueTableAdapter);
         dataBaseEmpty.setVisibility(View.GONE);
 
-        if(savedInstanceState==null) {
+        if (savedInstanceState == null) {
             if (checkInternetConnection()) {
                 allContentLinearLayout.setVisibility(View.VISIBLE);
                 errorLinearLayout.setVisibility(View.GONE);
@@ -148,7 +148,7 @@ public class LeagueTableFragment extends Fragment {
                         LeagueTableResponse leagueTableResponse = response.body();
                         leagueDataList = leagueTableResponse.getLeagueDataList();
                         leagueTableAdapter.setApiResponse(leagueTableResponse.getLeagueDataList());
-                        insertDataDataBase ();
+                        insertDataDataBase();
                         progressBar.setVisibility(View.GONE);
                     }
 
@@ -160,24 +160,18 @@ public class LeagueTableFragment extends Fragment {
 
                     }
                 });
-            }
+            } else if (favoriteLeagueCode == chapionCode) {
 
-            else if (favoriteLeagueCode==chapionCode)
-            {
+                loadDataDataBase();
 
-                loadDataDataBase ();
-
-            }
-            else {
+            } else {
 
                 allContentLinearLayout.setVisibility(View.GONE);
                 errorLinearLayout.setVisibility(View.VISIBLE);
             }
-        }
-        else {
+        } else {
             LeagueTableResponse leagueTableResponse = savedInstanceState.getParcelable(TEAM_SAVE_INSTANCE);
-            if(leagueTableResponse!=null)
-            {
+            if (leagueTableResponse != null) {
                 leagueDataList = leagueTableResponse.getLeagueDataList();
                 leagueTableAdapter.setApiResponse(leagueDataList);
 
@@ -188,46 +182,40 @@ public class LeagueTableFragment extends Fragment {
 
     }
 
-    public void insertDataDataBase ()
-    {
+    public void insertDataDataBase() {
 
         getActivity().getContentResolver().delete(LeagueProvider.LeagueIngredients.LEAGUE_URI, null, null);
         ContentValues[] cvs = new ContentValues[leagueDataList.size()];
-        for (int i=0;i<leagueDataList.size() ;i++)
-        {
+        for (int i = 0; i < leagueDataList.size(); i++) {
             LeagueData leagueData = leagueDataList.get(i);
-            cvs [i] = new ContentValues();
-            cvs[i].put(COLUMN_POSITION ,leagueData.getPosition() );
-            cvs[i].put(COLUMN_TEAM_NAME ,leagueData.getTeamName() );
-            cvs[i].put(COLUMN_IMAGE_URL ,leagueData.getCrestURI() );
-            cvs[i].put(LeagueContract.LeagueTableEntry.COLUMN_POINTS ,leagueData.getPoints() );
-            cvs[i].put(LeagueContract.LeagueTableEntry.COLUMN_WIN ,leagueData.getWins() );
-            cvs[i].put(LeagueContract.LeagueTableEntry.COLUMN_DRAWS ,leagueData.getDraws() );
-            cvs[i].put(LeagueContract.LeagueTableEntry.COLUMN_LOSSES ,leagueData.getLosses() );
+            cvs[i] = new ContentValues();
+            cvs[i].put(COLUMN_POSITION, leagueData.getPosition());
+            cvs[i].put(COLUMN_TEAM_NAME, leagueData.getTeamName());
+            cvs[i].put(COLUMN_IMAGE_URL, leagueData.getCrestURI());
+            cvs[i].put(LeagueContract.LeagueTableEntry.COLUMN_POINTS, leagueData.getPoints());
+            cvs[i].put(LeagueContract.LeagueTableEntry.COLUMN_WIN, leagueData.getWins());
+            cvs[i].put(LeagueContract.LeagueTableEntry.COLUMN_DRAWS, leagueData.getDraws());
+            cvs[i].put(LeagueContract.LeagueTableEntry.COLUMN_LOSSES, leagueData.getLosses());
 
         }
-       int numOfRows = getActivity().getContentResolver().bulkInsert(LeagueProvider.LeagueIngredients.LEAGUE_URI, cvs);
-        Log.d("DataBase size" ,String.valueOf(numOfRows));
+        int numOfRows = getActivity().getContentResolver().bulkInsert(LeagueProvider.LeagueIngredients.LEAGUE_URI, cvs);
+        Log.d("DataBase size", String.valueOf(numOfRows));
 
     }
 
-    public void loadDataDataBase ()
-    {
+    public void loadDataDataBase() {
         Cursor cursor = getActivity().getContentResolver().query(LeagueProvider.LeagueIngredients.LEAGUE_URI,
                 null, null, null, null);
-        if (cursor==null ||cursor.getCount()==0 )
-        {
+        if (cursor == null || cursor.getCount() == 0) {
             dataBaseEmpty.setVisibility(View.VISIBLE);
             errorLinearLayout.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
             allContentLinearLayout.setVisibility(View.GONE);
 
-        }
-        else {
-            List <LeagueData> leagueDataList2 = new ArrayList<>();
-            while(cursor.moveToNext())
-            {
-                LeagueData leagueData= new LeagueData();
+        } else {
+            List<LeagueData> leagueDataList2 = new ArrayList<>();
+            while (cursor.moveToNext()) {
+                LeagueData leagueData = new LeagueData();
                 leagueData.setPosition(cursor.getInt(cursor.getColumnIndex(COLUMN_POSITION)));
                 leagueData.setTeamName(cursor.getString(cursor.getColumnIndex(COLUMN_TEAM_NAME)));
                 leagueData.setCrestURI(cursor.getString(cursor.getColumnIndex(COLUMN_IMAGE_URL)));
@@ -237,21 +225,21 @@ public class LeagueTableFragment extends Fragment {
                 leagueData.setLosses(cursor.getInt(cursor.getColumnIndex(COLUMN_LOSSES)));
                 leagueDataList2.add(leagueData);
             }
-             leagueDataList2.size();
-            this.leagueDataList =leagueDataList2;
+            leagueDataList2.size();
+            this.leagueDataList = leagueDataList2;
             leagueTableAdapter.setApiResponse(leagueDataList);
             progressBar.setVisibility(View.GONE);
 
 
-
         }
     }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         LeagueTableResponse leagueTableResponse = new LeagueTableResponse();
         leagueTableResponse.setLeagueDataList(leagueDataList);
-        outState.putParcelable(TEAM_SAVE_INSTANCE ,leagueTableResponse);
+        outState.putParcelable(TEAM_SAVE_INSTANCE, leagueTableResponse);
 
     }
 

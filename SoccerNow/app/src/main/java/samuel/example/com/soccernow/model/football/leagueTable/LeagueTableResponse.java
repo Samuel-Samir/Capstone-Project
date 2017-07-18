@@ -7,21 +7,11 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import samuel.example.com.soccernow.model.football.leagueTable.LeagueData;
-
 /**
  * Created by samuel on 7/12/2017.
  */
 
 public class LeagueTableResponse implements Parcelable {
-
-    @SerializedName("standing")
-    private List<LeagueData> leagueDataList ;
-
-    protected LeagueTableResponse(Parcel in) {
-    }
-
-    public  LeagueTableResponse (){}
 
     public static final Creator<LeagueTableResponse> CREATOR = new Creator<LeagueTableResponse>() {
         @Override
@@ -34,6 +24,14 @@ public class LeagueTableResponse implements Parcelable {
             return new LeagueTableResponse[size];
         }
     };
+    @SerializedName("standing")
+    private List<LeagueData> leagueDataList;
+
+    protected LeagueTableResponse(Parcel in) {
+    }
+
+    public LeagueTableResponse() {
+    }
 
     public List<LeagueData> getLeagueDataList() {
         return leagueDataList;

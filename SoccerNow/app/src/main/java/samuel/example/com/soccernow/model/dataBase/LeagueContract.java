@@ -52,6 +52,6 @@ public class LeagueContract {
         @Table(LeagueTableEntry.class)
         public static final String LEAGUETABLE = "league";
         @Table(MatchesEntry.class)
-        public static final String MATCHESTABLE  = "matches";
+        public static final String MATCHESTABLE = "matches";
     }
 }

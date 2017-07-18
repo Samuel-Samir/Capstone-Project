@@ -35,13 +35,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.FavoriteleagueActivity"></activity>
-        <provider
-            android:authorities="samuel.example.com.soccernow"
-            android:name=".model.dataBase.generated.LeagueProvider"
-            android:exported="true"/>
 
-        <service android:name=".widget.WidgetService"
-            android:permission="android.permission.BIND_REMOTEVIEWS"/>
+        <provider
+            android:name=".model.dataBase.generated.LeagueProvider"
+            android:authorities="samuel.example.com.soccernow"
+            android:exported="true" />
+
+        <service
+            android:name=".widget.WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <receiver android:name=".widget.Widget">
             <intent-filter>

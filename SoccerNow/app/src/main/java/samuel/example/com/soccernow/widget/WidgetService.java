@@ -10,7 +10,9 @@ import android.widget.RemoteViewsService;
 import samuel.example.com.soccernow.R;
 import samuel.example.com.soccernow.model.dataBase.LeagueProvider;
 
-import static samuel.example.com.soccernow.model.dataBase.LeagueContract.LeagueTableEntry.*;
+import static samuel.example.com.soccernow.model.dataBase.LeagueContract.LeagueTableEntry.COLUMN_POINTS;
+import static samuel.example.com.soccernow.model.dataBase.LeagueContract.LeagueTableEntry.COLUMN_POSITION;
+import static samuel.example.com.soccernow.model.dataBase.LeagueContract.LeagueTableEntry.COLUMN_TEAM_NAME;
 
 /**
  * Created by samuel on 7/18/2017.
@@ -43,7 +45,7 @@ class RemoteWidgetViews implements RemoteViewsService.RemoteViewsFactory {
     @Override
     public void onDataSetChanged() {
         Uri queryUri = LeagueProvider.LeagueIngredients.LEAGUE_URI;
-        if (mCursor!=null) {
+        if (mCursor != null) {
             mCursor.close();
         }
         mCursor = mContext.getContentResolver().query(queryUri, null, null, null, null);
@@ -58,8 +60,7 @@ class RemoteWidgetViews implements RemoteViewsService.RemoteViewsFactory {
     public int getCount() {
         if (mCursor == null) {
             return 0;
-        }
-        else {
+        } else {
             return mCursor.getCount();
         }
 
@@ -81,7 +82,6 @@ class RemoteWidgetViews implements RemoteViewsService.RemoteViewsFactory {
         }
         return views;
     }
-
 
 
     @Override

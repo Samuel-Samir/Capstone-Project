@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 public class MatcheData {
 
     @SerializedName("date")
-    private String  date;
+    private String date;
     @SerializedName("status")
     private String status;
     @SerializedName("homeTeamName")
@@ -17,7 +17,7 @@ public class MatcheData {
     @SerializedName("awayTeamName")
     private String awayTeamName;
     @SerializedName("result")
-    private MatchResult result ;
+    private MatchResult result;
 
     public String getDate() {
         return date;

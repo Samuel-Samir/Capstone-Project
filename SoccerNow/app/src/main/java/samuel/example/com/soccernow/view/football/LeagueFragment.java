@@ -14,65 +14,68 @@ import java.util.ArrayList;
 import samuel.example.com.soccernow.R;
 import samuel.example.com.soccernow.adapter.ViewPagerAdapter;
 
+import static samuel.example.com.soccernow.Utilities.currentTabChooseFoot;
 import static samuel.example.com.soccernow.view.ContentActivity.CHAMPIONTYPE;
 import static samuel.example.com.soccernow.view.ContentActivity.CHAMPION_NAME;
 
 
 public class LeagueFragment extends Fragment {
 
-    private int chapionCode;
-    private String leagueName;
+    public static String LEAGUE_CODE = "code";
+    public static String LEAGUE_NEMA = "name";
     TabLayout tabLayout;
     ViewPager viewPager;
-    public static String LEAGUE_CODE ="code";
-    public static String LEAGUE_NEMA ="name";
+    private int chapionCode;
+    private String leagueName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView =inflater.inflate(R.layout.fragment_league, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_league, container, false);
 
-        if (getArguments()!= null && getArguments().getInt(CHAMPIONTYPE)!=0 &&  getArguments().getString(CHAMPION_NAME)!=null)
-        {
+        if (getArguments() != null && getArguments().getInt(CHAMPIONTYPE) != 0 && getArguments().getString(CHAMPION_NAME) != null) {
             chapionCode = getArguments().getInt(CHAMPIONTYPE);
-            leagueName=getArguments().getString(CHAMPION_NAME);
+            leagueName = getArguments().getString(CHAMPION_NAME);
         }
 
         viewPager = (ViewPager) rootView.findViewById(R.id.viewPager);
         tabLayout = (TabLayout) rootView.findViewById(R.id.tabLayout);
-        setFragments () ;
+        setFragments();
+        onOrientationChange(getResources().getConfiguration().orientation);
 
-        return rootView ;
+        return rootView;
     }
 
-    private  void setFragments ()
-    {
+    private void setFragments() {
         tabLayout.setupWithViewPager(viewPager);
-        ViewPagerAdapter customAdapter = new ViewPagerAdapter( getChildFragmentManager());
+        ViewPagerAdapter customAdapter = new ViewPagerAdapter(getChildFragmentManager());
 
         ArrayList<String> fragmentsNames = new ArrayList<>();
         fragmentsNames.add(getResources().getString(R.string.leagueTable));
         fragmentsNames.add(getResources().getString(R.string.matches));
 
-        ArrayList<Fragment> fragmentsList =new ArrayList<>();
+        ArrayList<Fragment> fragmentsList = new ArrayList<>();
         LeagueTableFragment leagueTableFragment = new LeagueTableFragment();
-        MatchesFragment matchesFragment =new MatchesFragment();
+        MatchesFragment matchesFragment = new MatchesFragment();
 
         Bundle bundle = new Bundle();
-        bundle.putInt(LEAGUE_CODE , chapionCode);
-        bundle.putString(LEAGUE_NEMA , leagueName);
+        bundle.putInt(LEAGUE_CODE, chapionCode);
+        bundle.putString(LEAGUE_NEMA, leagueName);
         leagueTableFragment.setArguments(bundle);
         matchesFragment.setArguments(bundle);
 
         fragmentsList.add(leagueTableFragment);
         fragmentsList.add(matchesFragment);
-        customAdapter.setData(fragmentsNames ,fragmentsList);
+        customAdapter.setData(fragmentsNames, fragmentsList);
+        viewPager.setCurrentItem(currentTabChooseFoot);
 
         viewPager.setAdapter(customAdapter);
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                currentTabChooseFoot = tab.getPosition();
+
             }
 
             @Override
@@ -87,7 +90,15 @@ public class LeagueFragment extends Fragment {
         });
     }
 
+    public void onOrientationChange(int orientation) {
+        viewPager.setCurrentItem(currentTabChooseFoot);
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        currentTabChooseFoot = 0;
 
+    }
 
 }

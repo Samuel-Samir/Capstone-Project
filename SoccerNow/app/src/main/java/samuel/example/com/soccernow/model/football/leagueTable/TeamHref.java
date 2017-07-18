@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 public class TeamHref {
 
     @SerializedName("team")
-    private Href team ;
+    private Href team;
 
     public Href getTeam() {
         return team;

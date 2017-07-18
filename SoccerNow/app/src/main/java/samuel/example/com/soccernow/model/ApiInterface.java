@@ -19,25 +19,22 @@ import samuel.example.com.soccernow.model.football.leagueTable.LeagueTableRespon
 public interface ApiInterface {
 
 
-
-
-
     @GET("articles/")
     Call<NewsResponse> getTopNews(@Query("source") String source, @Query("sortBy") String sortby, @Query("apiKey") String apiKey);
 
 
     @Headers("X-Auth-Token: 8899bb9e61d04e20b2de5ec3d26e5ecf")
     @GET("competitions/{champion_id}/leagueTable")
-    Call<LeagueTableResponse>  getLeagueTable (@Path("champion_id") int championId);
+    Call<LeagueTableResponse> getLeagueTable(@Path("champion_id") int championId);
 
 
     @Headers("X-Auth-Token: 8899bb9e61d04e20b2de5ec3d26e5ecf")
     @GET("competitions/{champion_id}/fixtures?matchday=16")
-    Call<LeagueMatchesResponse>  getLeagueMatches (@Path("champion_id") int championId);
+    Call<LeagueMatchesResponse> getLeagueMatches(@Path("champion_id") int championId);
 
     @Headers("X-Auth-Token: 8899bb9e61d04e20b2de5ec3d26e5ecf")
     @GET("teams/{team_id}/players")
-    Call<PlayerResponse>  getTeamPlayers (@Path("team_id") int teamId);
+    Call<PlayerResponse> getTeamPlayers(@Path("team_id") int teamId);
 
     class ApiClient {
 
@@ -46,7 +43,7 @@ public interface ApiInterface {
 
 
         public static Retrofit getClient() {
-            if (retrofit==null) {
+            if (retrofit == null) {
                 retrofit = new Retrofit.Builder()
                         .baseUrl(BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
@@ -63,7 +60,7 @@ public interface ApiInterface {
 
 
         public static Retrofit getClient() {
-            if (retrofit==null) {
+            if (retrofit == null) {
                 retrofit = new Retrofit.Builder()
                         .baseUrl(BASE_URL_FOOT_BALL)
                         .addConverterFactory(GsonConverterFactory.create())

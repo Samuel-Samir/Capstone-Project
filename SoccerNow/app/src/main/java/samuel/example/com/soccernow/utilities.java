@@ -7,17 +7,19 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
-import java.util.List;
-
 import samuel.example.com.soccernow.model.ConnectivityReceiver;
 
 /**
  * Created by samuel on 6/25/2017.
  */
 
-public class utilities {
+public class Utilities {
 
-    public static int currentChoose=1;
+    public static int currentChoose = 1;
+    public static int currentTabChoose = 0;
+    public static int currentTabChooseFoot = 0;
+
+
     public static boolean checkInternetConnection() {
         return ConnectivityReceiver.isConnected();
     }
@@ -60,7 +62,7 @@ public class utilities {
     }
 
 
-    public static int getFavoritLeagueFromSharedPreferences (Context context) {
+    public static int getFavoritLeagueFromSharedPreferences(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.fav_league), Context.MODE_PRIVATE);
         String code = (sharedPref.getString(context.getString(R.string.league_code), "-1"));
 

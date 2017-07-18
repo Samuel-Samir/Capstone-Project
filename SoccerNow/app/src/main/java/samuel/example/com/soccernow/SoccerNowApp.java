@@ -8,9 +8,13 @@ import samuel.example.com.soccernow.model.ConnectivityReceiver;
  * Created by samuel on 6/25/2017.
  */
 
-public class SoccerNowApp  extends Application {
+public class SoccerNowApp extends Application {
 
     private static SoccerNowApp mInstance;
+
+    public static synchronized SoccerNowApp getInstance() {
+        return mInstance;
+    }
 
     @Override
     public void onCreate() {
@@ -19,12 +23,8 @@ public class SoccerNowApp  extends Application {
         mInstance = this;
     }
 
-    public static synchronized SoccerNowApp getInstance() {
-        return mInstance;
-    }
-
     public void setConnectivityListener(ConnectivityReceiver.ConnectivityReceiverListener listener) {
-        if(listener!=null)
-             ConnectivityReceiver.connectivityReceiverListener  = listener;
+        if (listener != null)
+            ConnectivityReceiver.connectivityReceiverListener = listener;
     }
 }

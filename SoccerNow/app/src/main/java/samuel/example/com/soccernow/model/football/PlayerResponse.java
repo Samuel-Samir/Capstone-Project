@@ -13,12 +13,6 @@ import java.util.List;
 
 public class PlayerResponse implements Parcelable {
 
-    @SerializedName("players")
-    private List<PlayerData> playerDataList ;
-
-    protected PlayerResponse(Parcel in) {
-    }
-
     public static final Creator<PlayerResponse> CREATOR = new Creator<PlayerResponse>() {
         @Override
         public PlayerResponse createFromParcel(Parcel in) {
@@ -30,6 +24,14 @@ public class PlayerResponse implements Parcelable {
             return new PlayerResponse[size];
         }
     };
+    @SerializedName("players")
+    private List<PlayerData> playerDataList;
+
+    protected PlayerResponse(Parcel in) {
+    }
+
+    public PlayerResponse() {
+    }
 
     public List<PlayerData> getPlayerDataList() {
         return playerDataList;
@@ -38,8 +40,6 @@ public class PlayerResponse implements Parcelable {
     public void setPlayerDataList(List<PlayerData> playerDataList) {
         this.playerDataList = playerDataList;
     }
-
-    public PlayerResponse () {}
 
     @Override
     public int describeContents() {

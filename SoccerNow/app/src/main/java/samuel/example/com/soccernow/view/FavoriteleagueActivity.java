@@ -2,9 +2,8 @@ package samuel.example.com.soccernow.view;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Point;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.DisplayMetrics;
@@ -15,8 +14,8 @@ import android.widget.ProgressBar;
 import samuel.example.com.soccernow.R;
 import samuel.example.com.soccernow.adapter.FavoriteleagueAdapter;
 
-import static samuel.example.com.soccernow.utilities.getFavoritLeagueFromSharedPreferences;
-import static samuel.example.com.soccernow.utilities.isTablet;
+import static samuel.example.com.soccernow.Utilities.getFavoritLeagueFromSharedPreferences;
+import static samuel.example.com.soccernow.Utilities.isTablet;
 
 public class FavoriteleagueActivity extends AppCompatActivity {
 
@@ -29,9 +28,8 @@ public class FavoriteleagueActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favoriteleague);
-        if (getFavoritLeagueFromSharedPreferences(getBaseContext()) !=-1)
-        {
-            Intent intent = new Intent(FavoriteleagueActivity.this , ContentActivity.class);
+        if (getFavoritLeagueFromSharedPreferences(getBaseContext()) != -1) {
+            Intent intent = new Intent(FavoriteleagueActivity.this, ContentActivity.class);
             startActivity(intent);
             finish();
         }
@@ -44,18 +42,17 @@ public class FavoriteleagueActivity extends AppCompatActivity {
     }
 
 
-    public void onOrientationChange(int orientation ){
-        int landScape=2;
-        int portrait= 1;
+    public void onOrientationChange(int orientation) {
+        int landScape = 2;
+        int portrait = 1;
 
-        if (isTablet(FavoriteleagueActivity.this))
-        {
-            landScape=2;
-            portrait=2;
+        if (isTablet(FavoriteleagueActivity.this)) {
+            landScape = 2;
+            portrait = 2;
         }
 
         Display display = getWindowManager().getDefaultDisplay();
-        DisplayMetrics outMetrics = new DisplayMetrics ();
+        DisplayMetrics outMetrics = new DisplayMetrics();
         display.getMetrics(outMetrics);
 
         /*
@@ -66,14 +63,13 @@ public class FavoriteleagueActivity extends AppCompatActivity {
             portrait=1;*/
 
 
-        if(orientation == Configuration.ORIENTATION_PORTRAIT){
-            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(portrait, StaggeredGridLayoutManager.VERTICAL ));
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(portrait, StaggeredGridLayoutManager.VERTICAL));
             mRecyclerView.setAdapter(favoriteleagueAdapter);
 
-        }
-        else if(orientation == Configuration.ORIENTATION_LANDSCAPE){
+        } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
-            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(landScape, StaggeredGridLayoutManager.VERTICAL ));
+            mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(landScape, StaggeredGridLayoutManager.VERTICAL));
             mRecyclerView.setAdapter(favoriteleagueAdapter);
 
         }

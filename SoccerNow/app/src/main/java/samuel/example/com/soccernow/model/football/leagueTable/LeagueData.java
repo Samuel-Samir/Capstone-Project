@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 public class LeagueData {
 
     @SerializedName("position")
-    private int position ;
+    private int position;
 
     @SerializedName("teamName")
     private String teamName;
@@ -18,7 +18,7 @@ public class LeagueData {
     private String crestURI;
 
     @SerializedName("playedGames")
-    private int playedGames ;
+    private int playedGames;
 
     @SerializedName("points")
     private int points;
@@ -33,7 +33,7 @@ public class LeagueData {
     private int losses;
 
     @SerializedName("_links")
-    private TeamHref _links ;
+    private TeamHref _links;
 
     public TeamHref get_links() {
         return _links;

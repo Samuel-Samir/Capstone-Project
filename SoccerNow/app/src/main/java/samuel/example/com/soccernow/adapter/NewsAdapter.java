@@ -21,25 +21,24 @@ import samuel.example.com.soccernow.model.articleModel.Article;
  */
 
 
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.RecyclerViewAdapterHolder> {
+    private List<Article> articleList;
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.RecyclerViewAdapterHolder>{
-    private List<Article> articleList ;
-
-    public void setApiResponse (List<Article> articleList )
-    {
-        this.articleList =articleList;
+    public void setApiResponse(List<Article> articleList) {
+        this.articleList = articleList;
         notifyDataSetChanged();
     }
 
 
     @Override
     public RecyclerViewAdapterHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext() ;
+        Context context = parent.getContext();
         int layoutPhotoItem = R.layout.news_item;
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
-        View view = inflater.inflate(layoutPhotoItem ,parent ,shouldAttachToParentImmediately);
-        return new RecyclerViewAdapterHolder(view);    }
+        View view = inflater.inflate(layoutPhotoItem, parent, shouldAttachToParentImmediately);
+        return new RecyclerViewAdapterHolder(view);
+    }
 
     @Override
     public void onBindViewHolder(RecyclerViewAdapterHolder holder, final int position) {
@@ -47,7 +46,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.RecyclerViewAd
         final Article article = articleList.get(position);
         holder.article_auther.setText(article.getAuthor());
         holder.article_title.setText(article.getTitle());
-        String [] dateSplited = article.getPublishedAt().split("T");
+        String[] dateSplited = article.getPublishedAt().split("T");
         holder.date.setText(dateSplited[0]);
         Picasso.with(holder.context)
                 .load(article.getUrlToImage())
@@ -59,29 +58,28 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.RecyclerViewAd
 
     @Override
     public int getItemCount() {
-        if(articleList!=null)
-        {
+        if (articleList != null) {
             return articleList.size();
         }
         return 0;
     }
 
     public class RecyclerViewAdapterHolder extends RecyclerView.ViewHolder {
-        private LinearLayout layoutParent ;
-        private ImageView article_icon  ;
-        private TextView article_title ;
-        private TextView article_auther ;
-        private TextView date ;
-        private Context context ;
+        private LinearLayout layoutParent;
+        private ImageView article_icon;
+        private TextView article_title;
+        private TextView article_auther;
+        private TextView date;
+        private Context context;
 
 
         public RecyclerViewAdapterHolder(View itemView) {
             super(itemView);
-            context =  itemView.getContext() ;
-            layoutParent =(LinearLayout) itemView.findViewById(R.id.layoutParent);
-            article_icon= (ImageView) itemView.findViewById(R.id.icon_news);
-            article_auther= (TextView) itemView.findViewById(R.id.author_text_view);
-            article_title= (TextView) itemView.findViewById(R.id.title_text_view);
+            context = itemView.getContext();
+            layoutParent = (LinearLayout) itemView.findViewById(R.id.layoutParent);
+            article_icon = (ImageView) itemView.findViewById(R.id.icon_news);
+            article_auther = (TextView) itemView.findViewById(R.id.author_text_view);
+            article_title = (TextView) itemView.findViewById(R.id.title_text_view);
             date = (TextView) itemView.findViewById(R.id.date);
 
         }
