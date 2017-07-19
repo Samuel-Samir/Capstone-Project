@@ -32,8 +32,8 @@ import samuel.example.com.soccernow.model.dataBase.LeagueProvider;
 import samuel.example.com.soccernow.model.football.leagueTable.LeagueData;
 import samuel.example.com.soccernow.model.football.leagueTable.LeagueTableResponse;
 
-import static samuel.example.com.soccernow.Utilities.checkInternetConnection;
-import static samuel.example.com.soccernow.Utilities.getFavoritLeagueFromSharedPreferences;
+import static samuel.example.com.soccernow.Sam.checkInternetConnection;
+import static samuel.example.com.soccernow.Sam.getFavoritLeagueFromSharedPreferences;
 import static samuel.example.com.soccernow.model.dataBase.LeagueContract.LeagueTableEntry.COLUMN_DRAWS;
 import static samuel.example.com.soccernow.model.dataBase.LeagueContract.LeagueTableEntry.COLUMN_IMAGE_URL;
 import static samuel.example.com.soccernow.model.dataBase.LeagueContract.LeagueTableEntry.COLUMN_LOSSES;

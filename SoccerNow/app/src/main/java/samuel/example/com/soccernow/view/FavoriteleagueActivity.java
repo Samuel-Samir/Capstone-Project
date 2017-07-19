@@ -14,8 +14,8 @@ import android.widget.ProgressBar;
 import samuel.example.com.soccernow.R;
 import samuel.example.com.soccernow.adapter.FavoriteleagueAdapter;
 
-import static samuel.example.com.soccernow.Utilities.getFavoritLeagueFromSharedPreferences;
-import static samuel.example.com.soccernow.Utilities.isTablet;
+import static samuel.example.com.soccernow.Sam.getFavoritLeagueFromSharedPreferences;
+import static samuel.example.com.soccernow.Sam.isTablet;
 
 public class FavoriteleagueActivity extends AppCompatActivity {
 

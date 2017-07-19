@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import samuel.example.com.soccernow.R;
 import samuel.example.com.soccernow.adapter.ViewPagerAdapter;
 
-import static samuel.example.com.soccernow.Utilities.currentTabChooseFoot;
+import static samuel.example.com.soccernow.Sam.currentTabChooseFoot;
 import static samuel.example.com.soccernow.view.ContentActivity.CHAMPIONTYPE;
 import static samuel.example.com.soccernow.view.ContentActivity.CHAMPION_NAME;
 

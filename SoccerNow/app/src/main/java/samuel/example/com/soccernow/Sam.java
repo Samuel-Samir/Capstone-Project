@@ -13,7 +13,7 @@ import samuel.example.com.soccernow.model.ConnectivityReceiver;
  * Created by samuel on 6/25/2017.
  */
 
-public class Utilities {
+public class Sam {
 
     public static int currentChoose = 1;
     public static int currentTabChoose = 0;

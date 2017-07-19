@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import samuel.example.com.soccernow.R;
 import samuel.example.com.soccernow.adapter.ViewPagerAdapter;
 
-import static samuel.example.com.soccernow.Utilities.currentTabChoose;
+import static samuel.example.com.soccernow.Sam.currentTabChoose;
 
 public class NewsFragment extends Fragment {
 

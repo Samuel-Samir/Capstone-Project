@@ -17,7 +17,7 @@ import java.util.List;
 import samuel.example.com.soccernow.R;
 import samuel.example.com.soccernow.view.ContentActivity;
 
-import static samuel.example.com.soccernow.Utilities.saveFavoritLeagueSharedPreferences;
+import static samuel.example.com.soccernow.Sam.saveFavoritLeagueSharedPreferences;
 
 /**
  * Created by samuel on 7/16/2017.
