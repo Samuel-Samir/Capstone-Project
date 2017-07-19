@@ -6,6 +6,7 @@ android {
             keyAlias 'samuel'
             keyPassword 'samuel'
             storePassword 'samuel'
+            storeFile file('$rootdir/app-release.apk')
         }
     }
     compileSdkVersion 25
@@ -23,10 +24,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
-        }
-        buildType {
-        }
-        buildType1 {
         }
     }
 }

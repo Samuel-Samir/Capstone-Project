@@ -19,10 +19,10 @@ import samuel.example.com.soccernow.model.ConnectivityReceiver;
 import samuel.example.com.soccernow.view.football.LeagueFragment;
 import samuel.example.com.soccernow.view.news.NewsFragment;
 
-import static samuel.example.com.soccernow.Sam.checkInternetConnection;
-import static samuel.example.com.soccernow.Sam.currentChoose;
-import static samuel.example.com.soccernow.Sam.showSnackbar;
-import static samuel.example.com.soccernow.Sam.showSnackbarDisconnected;
+import static samuel.example.com.soccernow.Utilities.checkInternetConnection;
+import static samuel.example.com.soccernow.Utilities.currentChoose;
+import static samuel.example.com.soccernow.Utilities.showSnackbar;
+import static samuel.example.com.soccernow.Utilities.showSnackbarDisconnected;
 import static samuel.example.com.soccernow.view.news.NewsFragment.TAG_NEWS_FRAGMENT;
 
 public class ContentActivity extends AppCompatActivity

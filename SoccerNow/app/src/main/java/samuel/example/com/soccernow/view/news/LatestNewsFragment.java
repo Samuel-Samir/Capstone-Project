@@ -25,8 +25,8 @@ import samuel.example.com.soccernow.model.ApiInterface;
 import samuel.example.com.soccernow.model.articleModel.Article;
 import samuel.example.com.soccernow.model.articleModel.NewsResponse;
 
-import static samuel.example.com.soccernow.Sam.checkInternetConnection;
-import static samuel.example.com.soccernow.Sam.isTablet;
+import static samuel.example.com.soccernow.Utilities.checkInternetConnection;
+import static samuel.example.com.soccernow.Utilities.isTablet;
 
 /**
  * A simple {@link Fragment} subclass.

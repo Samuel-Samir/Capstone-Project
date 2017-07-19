@@ -38,9 +38,9 @@ import samuel.example.com.soccernow.svg.SvgDecoder;
 import samuel.example.com.soccernow.svg.SvgDrawableTranscoder;
 import samuel.example.com.soccernow.svg.SvgSoftwareLayerSetter;
 
-import static samuel.example.com.soccernow.Sam.checkInternetConnection;
-import static samuel.example.com.soccernow.Sam.showSnackbar;
-import static samuel.example.com.soccernow.Sam.showSnackbarDisconnected;
+import static samuel.example.com.soccernow.Utilities.checkInternetConnection;
+import static samuel.example.com.soccernow.Utilities.showSnackbar;
+import static samuel.example.com.soccernow.Utilities.showSnackbarDisconnected;
 import static samuel.example.com.soccernow.view.football.LeagueTableFragment.TEAM_BUNDEL;
 import static samuel.example.com.soccernow.view.football.LeagueTableFragment.TEAM_CODE;
 import static samuel.example.com.soccernow.view.football.LeagueTableFragment.TEAM_IMAGE;
