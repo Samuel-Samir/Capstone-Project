@@ -6,7 +6,7 @@ android {
             keyAlias 'samuel'
             keyPassword 'samuel'
             storePassword 'samuel'
-            storeFile file('$rootdir/app-release.apk')
+            storeFile file("$rootDir/keystore.jks")
         }
     }
     compileSdkVersion 25
